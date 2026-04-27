@@ -93,20 +93,23 @@ def distance_to_line(
     point: QtCore.QPointF,
     line: tuple[QtCore.QPointF, QtCore.QPointF],
 ) -> np.floating[Any]:
-    p1, p2 = line
-    p1 = np.array([p1.x(), p1.y()])
-    p2 = np.array([p2.x(), p2.y()])
-    p3 = np.array([point.x(), point.y()])
-    if np.dot((p3 - p1), (p2 - p1)) < 0:
-        return np.linalg.norm(p3 - p1)
-    if np.dot((p3 - p2), (p1 - p2)) < 0:
-        return np.linalg.norm(p3 - p2)
-    d = p2 - p1
-    if np.linalg.norm(d) == 0:
-        return np.linalg.norm(p3 - p1)
-    v = p1 - p3
-    cross = d[0] * v[1] - d[1] * v[0]
-    return abs(cross) / np.linalg.norm(d)
+    start, end = line
+    sx, sy = start.x(), start.y()
+    ex, ey = end.x(), end.y()
+    px, py = point.x(), point.y()
+
+    edge_x = ex - sx
+    edge_y = ey - sy
+    length_sq = edge_x * edge_x + edge_y * edge_y
+    if length_sq == 0:
+        return np.hypot(px - sx, py - sy)
+
+    t = ((px - sx) * edge_x + (py - sy) * edge_y) / length_sq
+    t = min(1.0, max(0.0, t))
+
+    nearest_x = sx + t * edge_x
+    nearest_y = sy + t * edge_y
+    return np.hypot(px - nearest_x, py - nearest_y)
 
 
 def format_shortcut(text: str) -> str:

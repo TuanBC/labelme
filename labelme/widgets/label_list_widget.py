@@ -98,7 +98,9 @@ class LabelListWidgetItem(QtGui.QStandardItem):
         self.set_shape(shape)
 
         self.setCheckable(True)
-        self.setCheckState(Qt.Checked)
+        self.setCheckState(
+            Qt.Checked if shape is None or shape.visible else Qt.Unchecked
+        )
         self.setEditable(False)
         self.setTextAlignment(Qt.AlignBottom)
 

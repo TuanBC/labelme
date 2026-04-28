@@ -7,6 +7,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import QPointF
 from pytestqt.qtbot import QtBot
 
+from labelme.shape import Shape
 from labelme.widgets.canvas import Canvas
 from labelme.widgets.canvas import _compute_intersection_edges_image
 from labelme.widgets.canvas import _normalize_bbox_points
@@ -121,3 +122,20 @@ def test_normalize_bbox_points(p1: QPointF, p2: QPointF) -> None:
 def test_normalize_bbox_points_rejects_wrong_length() -> None:
     with pytest.raises(ValueError, match="Expected 2 points"):
         _normalize_bbox_points(bbox_points=[QPointF(0, 0)])
+
+
+@pytest.mark.gui
+def test_shape_visibility_survives_backup_and_restore(canvas: Canvas) -> None:
+    shape = Shape(label="a", shape_type="rectangle")
+    shape.add_point(QPointF(0, 0))
+    shape.add_point(QPointF(10, 10))
+    shape.close()
+    canvas.load_shapes([shape])
+
+    canvas.set_shape_visible(canvas.shapes[0], False)
+    canvas.backup_shapes()
+    canvas.load_shapes([shape.copy()])
+    assert canvas.is_shape_visible(canvas.shapes[0]) is False
+
+    canvas.restore_last_shape()
+    assert canvas.is_shape_visible(canvas.shapes[0]) is False

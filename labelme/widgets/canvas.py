@@ -122,7 +122,6 @@ class Canvas(QtWidgets.QWidget):
         self.offsets = QPointF(), QPointF()
         self.scale: float = 1.0
         self._osam_session = None
-        self.visible: dict = {}
         self._hide_background: bool = False
         self.hide_background: bool = False
         self.snapping = True
@@ -249,7 +248,7 @@ class Canvas(QtWidgets.QWidget):
         self._update_status()
 
     def is_shape_visible(self, shape: Shape) -> bool:
-        return self.visible.get(shape, True)
+        return shape.visible
 
     def drawing(self) -> bool:
         return self.mode == CanvasMode.CREATE
@@ -1360,7 +1359,9 @@ class Canvas(QtWidgets.QWidget):
         self.update()
 
     def set_shape_visible(self, shape: Shape, value: bool) -> None:
-        self.visible[shape] = value
+        if shape.visible == value:
+            return
+        shape.visible = value
         self.update()
 
     def _apply_cursor(self, cursor: QtCore.Qt.CursorShape) -> None:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pytest
+from PyQt5.QtCore import QPoint
 from PyQt5.QtCore import QPointF
 from PyQt5.QtCore import Qt
 from pytestqt.qtbot import QtBot
@@ -125,5 +126,106 @@ def test_undo_recovers_accidental_hide(
     for i, shape in enumerate(canvas.shapes):
         assert canvas.is_shape_visible(shape)
         assert label_list[i].checkState() == Qt.Checked
+
+    close_or_pause(qtbot=qtbot, widget=annotated_win, pause=pause)
+
+
+@pytest.mark.gui
+def test_multi_select_toggle_propagates(
+    qtbot: QtBot,
+    annotated_win: MainWindow,
+    pause: bool,
+) -> None:
+    canvas = annotated_win._canvas_widgets.canvas
+    label_list = annotated_win._docks.label_list
+
+    assert len(canvas.shapes) == 5
+    selected_indices = (0, 1, 3)
+
+    label_list.clearSelection()
+    for i in selected_indices:
+        label_list.select_item(label_list[i])
+    qtbot.wait(50)
+    assert {item for item in label_list.selected_items()} == {
+        label_list[i] for i in selected_indices
+    }
+
+    label_list[selected_indices[1]].setCheckState(Qt.Unchecked)
+    qtbot.wait(50)
+
+    for i in range(len(canvas.shapes)):
+        if i in selected_indices:
+            assert not canvas.is_shape_visible(canvas.shapes[i])
+            assert label_list[i].checkState() == Qt.Unchecked
+        else:
+            assert canvas.is_shape_visible(canvas.shapes[i])
+            assert label_list[i].checkState() == Qt.Checked
+
+    annotated_win._actions.undo.trigger()
+    qtbot.wait(50)
+
+    for i in range(len(canvas.shapes)):
+        assert canvas.is_shape_visible(canvas.shapes[i])
+        assert label_list[i].checkState() == Qt.Checked
+
+    close_or_pause(qtbot=qtbot, widget=annotated_win, pause=pause)
+
+
+@pytest.mark.gui
+def test_multi_select_preserves_selection_after_checkbox_click(
+    qtbot: QtBot,
+    annotated_win: MainWindow,
+    pause: bool,
+) -> None:
+    canvas = annotated_win._canvas_widgets.canvas
+    label_list = annotated_win._docks.label_list
+
+    assert len(canvas.shapes) == 5
+    selected_indices = (0, 1, 3)
+
+    label_list.clearSelection()
+    for i in selected_indices:
+        label_list.select_item(label_list[i])
+    qtbot.wait(50)
+
+    target_index = label_list._model.indexFromItem(label_list[selected_indices[1]])
+    rect = label_list.visualRect(target_index)
+    checkbox_pos = QPoint(rect.left() + 5, rect.center().y())
+    qtbot.mouseClick(label_list.viewport(), Qt.LeftButton, pos=checkbox_pos)
+    qtbot.wait(50)
+
+    assert {item for item in label_list.selected_items()} == {
+        label_list[i] for i in selected_indices
+    }
+    for i in selected_indices:
+        assert label_list[i].checkState() == Qt.Unchecked
+        assert not canvas.is_shape_visible(canvas.shapes[i])
+
+    close_or_pause(qtbot=qtbot, widget=annotated_win, pause=pause)
+
+
+@pytest.mark.gui
+def test_multi_select_collapses_on_row_body_click(
+    qtbot: QtBot,
+    annotated_win: MainWindow,
+    pause: bool,
+) -> None:
+    label_list = annotated_win._docks.label_list
+
+    selected_indices = (0, 1, 3)
+    clicked_index = 2
+
+    label_list.clearSelection()
+    for i in selected_indices:
+        label_list.select_item(label_list[i])
+    qtbot.wait(50)
+
+    target_index = label_list._model.indexFromItem(label_list[clicked_index])
+    rect = label_list.visualRect(target_index)
+    row_body_pos = QPoint(rect.center().x(), rect.center().y())
+    qtbot.mouseClick(label_list.viewport(), Qt.LeftButton, pos=row_body_pos)
+    qtbot.wait(50)
+
+    assert {item for item in label_list.selected_items()} == {label_list[clicked_index]}
 
     close_or_pause(qtbot=qtbot, widget=annotated_win, pause=pause)

@@ -3,6 +3,7 @@ from __future__ import annotations
 import html
 from collections.abc import Iterator
 from typing import TYPE_CHECKING
+from typing import NamedTuple
 from typing import cast
 
 if TYPE_CHECKING:
@@ -157,6 +158,11 @@ class _ItemModel(QtGui.QStandardItemModel):
         return super().dropMimeData(data, action, row, column, parent)
 
 
+class _ItemSnapshot(NamedTuple):
+    item: LabelListWidgetItem
+    check_state: Qt.CheckState
+
+
 class LabelListWidget(QtWidgets.QListView):
     item_double_clicked = QtCore.pyqtSignal(LabelListWidgetItem)
     item_selection_changed = QtCore.pyqtSignal(list, list)
@@ -177,6 +183,41 @@ class LabelListWidget(QtWidgets.QListView):
 
         self.doubleClicked.connect(self._on_item_double_clicked)
         self.selectionModel().selectionChanged.connect(self._on_item_selection_changed)
+
+        self._press_snapshot: tuple[_ItemSnapshot, ...] = ()
+
+    def mousePressEvent(self, e: QtGui.QMouseEvent) -> None:
+        self._press_snapshot = tuple(
+            _ItemSnapshot(item=item, check_state=item.checkState())
+            for item in self.selected_items()
+        )
+        super().mousePressEvent(e)
+
+    def mouseReleaseEvent(self, e: QtGui.QMouseEvent) -> None:
+        super().mouseReleaseEvent(e)
+
+        # Restore the multi-selection only when a checkbox toggle collapsed it.
+        # A plain row click should narrow the selection to one row.
+        check_state_changed = any(
+            snap.item.checkState() != snap.check_state for snap in self._press_snapshot
+        )
+        items_at_press = tuple(snap.item for snap in self._press_snapshot)
+        if (
+            check_state_changed
+            and len(items_at_press) > 1
+            and set(self.selected_items()) != set(items_at_press)
+        ):
+            self.selectionModel().clearSelection()
+            for item in items_at_press:
+                self.selectionModel().select(
+                    self._model.indexFromItem(item),
+                    QtCore.QItemSelectionModel.Select,
+                )
+
+        self._press_snapshot = ()
+
+    def selection_at_press(self) -> tuple[LabelListWidgetItem, ...]:
+        return tuple(snap.item for snap in self._press_snapshot)
 
     def __len__(self) -> int:
         return self._model.rowCount()

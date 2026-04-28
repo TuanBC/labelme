@@ -857,5 +857,15 @@ Please select a different model or use AI-Box mode.</source>
         <source>File list is disabled when a label file is opened</source>
         <translation>Список файлів вимкнено, коли відкрито файл міток</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>Додати точку на ребро</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>Вставити нову точку на ребрі полігона під курсором</translation>
+    </message>
 </context>
 </TS>

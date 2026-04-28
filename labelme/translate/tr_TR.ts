@@ -857,5 +857,15 @@ Lütfen farklı bir model seçin veya AI-Box modunu kullanın.</translation>
         <source>File list is disabled when a label file is opened</source>
         <translation>Bir etiket dosyası açıkken dosya listesi devre dışı kalır</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>Kenara nokta ekle</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>Üzerinde durulan poligon kenarına yeni bir nokta ekle</translation>
+    </message>
 </context>
 </TS>

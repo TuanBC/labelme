@@ -124,6 +124,7 @@ class _Actions(NamedTuple):
     paste: QtWidgets.QAction
     undo_last_point: QtWidgets.QAction
     undo: QtWidgets.QAction
+    add_point_to_edge: QtWidgets.QAction
     remove_point: QtWidgets.QAction
     create_mode: QtWidgets.QAction
     edit_mode: QtWidgets.QAction
@@ -455,6 +456,12 @@ class MainWindow(QtWidgets.QMainWindow):
             tip=self.tr("Remove selected point from polygon"),
             enabled=False,
         )
+        add_point_to_edge = action(
+            text=self.tr("Add Point to Edge"),
+            slot=self._canvas_widgets.canvas.add_point_to_edge,
+            tip=self.tr("Insert a new point at the hovered polygon edge"),
+            enabled=False,
+        )
         create_mode = action(
             text=self.tr("Polygon"),
             slot=lambda: self._switch_canvas_mode(edit=False, create_mode="polygon"),
@@ -671,6 +678,7 @@ class MainWindow(QtWidgets.QMainWindow):
         fit_window.setChecked(Qt.Checked)
 
         self._canvas_widgets.canvas.vertex_selected.connect(remove_point.setEnabled)
+        self._canvas_widgets.canvas.edge_selected.connect(add_point_to_edge.setEnabled)
 
         draw = [
             ("polygon", create_mode),
@@ -713,6 +721,7 @@ class MainWindow(QtWidgets.QMainWindow):
             delete,
             undo,
             undo_last_point,
+            add_point_to_edge,
             remove_point,
         )
         edit_menu = (
@@ -749,6 +758,7 @@ class MainWindow(QtWidgets.QMainWindow):
             undo_last_point=undo_last_point,
             undo=undo,
             remove_point=remove_point,
+            add_point_to_edge=add_point_to_edge,
             create_mode=create_mode,
             edit_mode=edit_mode,
             create_rectangle_mode=create_rectangle_mode,

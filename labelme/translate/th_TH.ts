@@ -854,5 +854,15 @@ Please select a different model or use AI-Box mode.</source>
         <source>File list is disabled when a label file is opened</source>
         <translation>รายการไฟล์ถูกปิดใช้งานเมื่อเปิดไฟล์ป้ายกำกับ</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>เพิ่มจุดบนขอบ</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>แทรกจุดใหม่บนขอบของรูปหลายเหลี่ยมที่เคอร์เซอร์ชี้อยู่</translation>
+    </message>
 </context>
 </TS>

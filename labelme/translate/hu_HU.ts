@@ -860,5 +860,15 @@ Kérjük, válasszon másik modellt vagy használja az AI-Box módot.</translati
         <source>File list is disabled when a label file is opened</source>
         <translation>A fájllista le van tiltva, ha egy címke fájl van megnyitva</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>Pont hozzáadása az élhez</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>Új pont beszúrása a kijelölt sokszög élre</translation>
+    </message>
 </context>
 </TS>

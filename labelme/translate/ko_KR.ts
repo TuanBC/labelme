@@ -854,5 +854,15 @@ Please select a different model or use AI-Box mode.</source>
         <source>File list is disabled when a label file is opened</source>
         <translation>라벨 파일이 열려 있을 때 파일 목록이 비활성화됩니다</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>모서리에 점 추가</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>마우스가 가리키는 다각형 모서리에 새 점 삽입</translation>
+    </message>
 </context>
 </TS>

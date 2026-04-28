@@ -854,5 +854,15 @@ Vui lòng chọn mô hình khác hoặc sử dụng chế độ AI-Box.</transla
         <source>File list is disabled when a label file is opened</source>
         <translation>Danh sách tệp bị tắt khi mở tệp nhãn</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>Thêm điểm vào cạnh</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>Chèn điểm mới vào cạnh đa giác đang trỏ tới</translation>
+    </message>
 </context>
 </TS>

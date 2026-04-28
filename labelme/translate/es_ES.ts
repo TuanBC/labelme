@@ -854,5 +854,15 @@ Seleccione un modelo diferente o use el modo AI-Box.</translation>
         <source>File list is disabled when a label file is opened</source>
         <translation>La lista de archivos está desactivada cuando se abre un archivo de etiquetas</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>Añadir punto al borde</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>Insertar un nuevo punto en el borde del polígono seleccionado</translation>
+    </message>
 </context>
 </TS>

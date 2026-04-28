@@ -1690,15 +1690,37 @@ class MainWindow(QtWidgets.QMainWindow):
                 self._canvas_widgets.canvas.update()
 
     def _on_label_item_changed(self, item: LabelListWidgetItem) -> None:
-        shape = item.shape()
-        assert shape is not None
-        new_visible = item.checkState() == Qt.Checked
-        if shape.visible == new_visible:
+        is_visible_new = item.checkState() == Qt.Checked
+
+        selected_group = (
+            self._docks.label_list.selection_at_press()
+            or self._docks.label_list.selected_items()
+        )
+        items_to_toggle = (
+            selected_group
+            if item in selected_group and len(selected_group) > 1
+            else [item]
+        )
+        items_to_change = [
+            it
+            for it in items_to_toggle
+            if (sh := it.shape()) is not None and sh.visible != is_visible_new
+        ]
+        if not items_to_change:
             return
-        canvas = self._canvas_widgets.canvas
-        canvas.set_shape_visible(shape, new_visible)
-        canvas.backup_shapes()
-        self._actions.undo.setEnabled(canvas.can_restore_shape)
+
+        new_check_state = Qt.Checked if is_visible_new else Qt.Unchecked
+        with QtCore.QSignalBlocker(self._docks.label_list._model):
+            for item_to_toggle in items_to_change:
+                shape_to_toggle = item_to_toggle.shape()
+                assert shape_to_toggle is not None
+                item_to_toggle.setCheckState(new_check_state)
+                self._canvas_widgets.canvas.set_shape_visible(
+                    shape=shape_to_toggle, value=is_visible_new
+                )
+
+        self._canvas_widgets.canvas.backup_shapes()
+        self._actions.undo.setEnabled(self._canvas_widgets.canvas.can_restore_shape)
 
     def _on_label_order_changed(self) -> None:
         self.mark_dirty()

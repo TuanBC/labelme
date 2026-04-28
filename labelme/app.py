@@ -2436,26 +2436,22 @@ class MainWindow(QtWidgets.QMainWindow):
         return lst
 
     def import_dropped_image_files(self, image_files: list[str]) -> None:
-        extensions = [
+        extensions = tuple(
             f".{fmt.data().decode().lower()}"
             for fmt in QtGui.QImageReader.supportedImageFormats()
+        )
+        already_loaded = set(self.image_list)
+        new_files = [
+            path
+            for path in image_files
+            if path not in already_loaded and path.lower().endswith(extensions)
         ]
 
         self._image_path = None
-        for file in image_files:
-            if file in self.image_list or not file.lower().endswith(tuple(extensions)):
-                continue
-            item = QtWidgets.QListWidgetItem(file)
-            item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable)
-            if QtCore.QFile.exists(
-                _resolve_label_path(
-                    image_or_label_path=file, output_dir=self._output_dir
-                )
-            ):
-                item.setCheckState(Qt.Checked)
-            else:
-                item.setCheckState(Qt.Unchecked)
-            self._docks.file_list.addItem(item)
+        for path in new_files:
+            self._docks.file_list.addItem(
+                _make_image_list_item(image_path=path, output_dir=self._output_dir)
+            )
 
         if len(self.image_list) > 1:
             self._actions.open_next_img.setEnabled(True)
@@ -2607,6 +2603,19 @@ def _resolve_label_path(*, image_or_label_path: str, output_dir: Path | None) ->
     image_path = Path(image_or_label_path)
     parent = output_dir if output_dir is not None else image_path.parent
     return str(parent / f"{image_path.stem}{LabelFile.suffix}")
+
+
+def _make_image_list_item(
+    *, image_path: str, output_dir: Path | None
+) -> QtWidgets.QListWidgetItem:
+    item = QtWidgets.QListWidgetItem(image_path)
+    item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsSelectable)
+    label_path = _resolve_label_path(
+        image_or_label_path=image_path, output_dir=output_dir
+    )
+    has_label = QtCore.QFile.exists(label_path)
+    item.setCheckState(Qt.Checked if has_label else Qt.Unchecked)
+    return item
 
 
 def _shape_to_dict(shape: Shape) -> dict[str, Any]:

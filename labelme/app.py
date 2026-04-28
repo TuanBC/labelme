@@ -1692,9 +1692,13 @@ class MainWindow(QtWidgets.QMainWindow):
     def _on_label_item_changed(self, item: LabelListWidgetItem) -> None:
         shape = item.shape()
         assert shape is not None
-        self._canvas_widgets.canvas.set_shape_visible(
-            shape, item.checkState() == Qt.Checked
-        )
+        new_visible = item.checkState() == Qt.Checked
+        if shape.visible == new_visible:
+            return
+        canvas = self._canvas_widgets.canvas
+        canvas.set_shape_visible(shape, new_visible)
+        canvas.backup_shapes()
+        self._actions.undo.setEnabled(canvas.can_restore_shape)
 
     def _on_label_order_changed(self) -> None:
         self.mark_dirty()

@@ -4,10 +4,12 @@ import argparse
 import collections
 import datetime
 import json
+import math
 import sys
 import uuid
 from pathlib import Path
 from typing import Any
+from typing import Final
 
 import imgviz
 import numpy as np
@@ -19,6 +21,35 @@ try:
 except ImportError:
     print("Please install pycocotools:\n\n    pip install pycocotools\n")
     sys.exit(1)
+
+
+def _circle_to_polygon_segmentation(
+    *, center: tuple[float, float], edge: tuple[float, float]
+) -> list[float]:
+    CHORD_TOLERANCE_PX: Final = 1.0
+    MIN_VERTICES: Final = 12
+
+    cx, cy = center
+    ex, ey = edge
+    radius = math.hypot(ex - cx, ey - cy)
+    if radius == 0.0:
+        raise ValueError("Degenerate circle: center and edge are the same point.")
+
+    # Pick a vertex count so the chord-to-arc deviation stays within 1 pixel:
+    # solving r * (1 - cos(pi / n)) <= tol for n yields n >= pi / acos(1 - tol/r).
+    # When r <= tol the formula domain breaks, so clamp to the minimum.
+    if radius <= CHORD_TOLERANCE_PX:
+        n_vertices = MIN_VERTICES
+    else:
+        n_vertices = max(
+            MIN_VERTICES,
+            int(math.pi / math.acos(1.0 - CHORD_TOLERANCE_PX / radius)),
+        )
+    angles = (2.0 * math.pi / n_vertices) * np.arange(n_vertices)
+    coords = np.empty((n_vertices, 2), dtype=float)
+    coords[:, 0] = cx + radius * np.cos(angles)
+    coords[:, 1] = cy + radius * np.sin(angles)
+    return coords.flatten().tolist()
 
 
 def main() -> None:
@@ -135,16 +166,11 @@ def main() -> None:
                 x1, x2 = sorted([x1, x2])
                 y1, y2 = sorted([y1, y2])
                 points_coco = [x1, y1, x2, y1, x2, y2, x1, y2]
-            if shape_type == "circle":
-                (x1, y1), (x2, y2) = points
-                r = np.linalg.norm([x2 - x1, y2 - y1])
-                # r(1-cos(a/2))<x, a=2*pi/N => N>pi/arccos(1-x/r)
-                # x: tolerance of the gap between the arc and the line segment
-                n_points_circle = max(int(np.pi / np.arccos(1 - 1 / r)), 12)
-                i = np.arange(n_points_circle)
-                x = x1 + r * np.sin(2 * np.pi / n_points_circle * i)
-                y = y1 + r * np.cos(2 * np.pi / n_points_circle * i)
-                points_coco = np.stack((x, y), axis=1).flatten().tolist()
+            elif shape_type == "circle":
+                (cx, cy), (ex, ey) = points
+                points_coco = _circle_to_polygon_segmentation(
+                    center=(cx, cy), edge=(ex, ey)
+                )
             else:
                 points_coco = np.asarray(points).flatten().tolist()
 

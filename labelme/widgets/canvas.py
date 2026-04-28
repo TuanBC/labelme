@@ -194,8 +194,7 @@ class Canvas(QtWidgets.QWidget):
         )
 
     def _shapes_from_bbox_ai(self, bbox_points: list[QPointF]) -> list[Shape]:
-        if len(bbox_points) != 2:
-            raise ValueError(f"Expected 2 points for bbox AI, got {len(bbox_points)}")
+        bbox_points = _normalize_bbox_points(bbox_points=bbox_points)
         image: np.ndarray = labelme.utils.img_qt_to_arr(img_qt=self.pixmap.toImage())
         response: osam.types.GenerateResponse = self._get_osam_session().run(
             image=imgviz.asrgb(image),  # type: ignore[arg-type]
@@ -1466,6 +1465,18 @@ def _shapes_from_ai_response(
         if shape is not None:
             shapes.append(shape)
     return shapes
+
+
+def _normalize_bbox_points(bbox_points: list[QPointF]) -> list[QPointF]:
+    if len(bbox_points) != 2:
+        raise ValueError(f"Expected 2 points for bbox, got {len(bbox_points)}")
+
+    p1, p2 = bbox_points
+    xmin = min(p1.x(), p2.x())
+    ymin = min(p1.y(), p2.y())
+    xmax = max(p1.x(), p2.x())
+    ymax = max(p1.y(), p2.y())
+    return [QPointF(xmin, ymin), QPointF(xmax, ymax)]
 
 
 def _snap_cursor_pos_for_square(pos: QPointF, opposite_vertex: QPointF) -> QPointF:

@@ -91,7 +91,7 @@ class Canvas(QtWidgets.QWidget):
             raise ValueError(
                 f"Unexpected value for double_click event: {self.double_click}"
             )
-        self.num_backups = kwargs.pop("num_backups", 10)
+        self.num_backups: int = kwargs.pop("num_backups", 10)
         self._crosshair = kwargs.pop(
             "crosshair",
             {
@@ -213,23 +213,19 @@ class Canvas(QtWidgets.QWidget):
 
     @property
     def can_restore_shape(self) -> bool:
-        # We save the state AFTER each edit (not before) so for an
-        # edit to be undoable, we expect the CURRENT and the PREVIOUS state
-        # to be in the undo stack.
-        if len(self.shape_backups) < 2:
-            return False
-        return True
+        # The latest entry on the backup stack mirrors the current state, so
+        # at least one prior entry must exist for an undo to be meaningful.
+        return len(self.shape_backups) >= 2
 
     def restore_last_shape(self) -> None:
-        # This does _part_ of the job of restoring shapes.
-        # The complete process is also done in app.py::undo_shape_edit
-        # and app.py::load_shapes and our own Canvas::load_shapes function.
+        # Undo coordinates with app.py::undo_shape_edit, app.py::load_shapes,
+        # and Canvas::load_shapes; this method only adjusts the backup stack.
         if not self.can_restore_shape:
             return
-        self.shape_backups.pop()  # latest
+        self.shape_backups.pop()  # discard current state
 
-        # The application will eventually call Canvas.load_shapes which will
-        # push this right back onto the stack.
+        # load_shapes (called downstream by the application) will re-push
+        # this entry as the new current state.
         self.shapes = self.shape_backups.pop()
         for shape in self.shapes:
             shape.selected = False

@@ -854,5 +854,15 @@ Selecione um modelo diferente ou use o modo AI-Box.</translation>
         <source>File list is disabled when a label file is opened</source>
         <translation>A lista de arquivos está desativada quando um arquivo de rótulos é aberto</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>Adicionar ponto à aresta</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>Inserir um novo ponto na aresta do polígono em foco</translation>
+    </message>
 </context>
 </TS>

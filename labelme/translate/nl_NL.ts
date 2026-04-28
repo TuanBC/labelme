@@ -854,5 +854,15 @@ Selecteer een ander model of gebruik de AI-Box-modus.</translation>
         <source>File list is disabled when a label file is opened</source>
         <translation>De bestandslijst is uitgeschakeld wanneer een labelbestand is geopend</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>Punt aan rand toevoegen</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>Nieuw punt invoegen op de aangewezen polygoonrand</translation>
+    </message>
 </context>
 </TS>

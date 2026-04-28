@@ -64,6 +64,7 @@ class Canvas(QtWidgets.QWidget):
     shape_moved = QtCore.pyqtSignal()
     drawing_polygon = QtCore.pyqtSignal(bool)
     vertex_selected = QtCore.pyqtSignal(bool)
+    edge_selected = QtCore.pyqtSignal(bool)
     mouse_moved = QtCore.pyqtSignal(QPointF)
     status_updated = QtCore.pyqtSignal(str)
 
@@ -438,6 +439,7 @@ class Canvas(QtWidgets.QWidget):
         status_messages: list[str] = []
         self._highlight_hover_shape(pos=pos, status_messages=status_messages)
         self.vertex_selected.emit(self.hovered_vertex is not None)
+        self.edge_selected.emit(self.hovered_edge is not None)
         self._update_status(extra_messages=status_messages)
 
     def _update_drawing_line(self, pos: QPointF, is_shift_pressed: bool) -> QPointF:

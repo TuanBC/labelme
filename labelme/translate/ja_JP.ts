@@ -868,5 +868,15 @@ Please select a different model or use AI-Box mode.</source>
         <source>File list is disabled when a label file is opened</source>
         <translation>ラベルファイルを開いている場合、ファイルリストは無効です</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>辺に頂点を追加</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>カーソル位置のポリゴンの辺に新しい頂点を挿入</translation>
+    </message>
 </context>
 </TS>

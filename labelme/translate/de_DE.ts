@@ -860,5 +860,15 @@ Bitte wählen Sie ein anderes Modell oder verwenden Sie den AI-Box-Modus.</trans
         <source>File list is disabled when a label file is opened</source>
         <translation>Die Dateiliste ist deaktiviert, wenn eine Label-Datei geöffnet ist</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>Punkt zur Kante hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>Neuen Punkt an der ausgewählten Polygonkante einfügen</translation>
+    </message>
 </context>
 </TS>

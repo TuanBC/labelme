@@ -854,5 +854,15 @@ Wybierz inny model lub użyj trybu AI-Box.</translation>
         <source>File list is disabled when a label file is opened</source>
         <translation>Lista plików jest wyłączona, gdy otwarty jest plik etykiet</translation>
     </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Add Point to Edge</source>
+        <translation>Dodaj punkt do krawędzi</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Insert a new point at the hovered polygon edge</source>
+        <translation>Wstaw nowy punkt na wskazywanej krawędzi wielokąta</translation>
+    </message>
 </context>
 </TS>

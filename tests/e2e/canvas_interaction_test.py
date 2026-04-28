@@ -248,6 +248,35 @@ def test_add_point_on_edge(
 
 
 @pytest.mark.gui
+def test_add_point_via_context_menu_action(
+    qtbot: QtBot,
+    annotated_win: MainWindow,
+    tmp_path: Path,
+    pause: bool,
+) -> None:
+    canvas = annotated_win._canvas_widgets.canvas
+    shape = canvas.shapes[_SHAPE_INDEX]
+    num_points_before = len(shape.points)
+
+    assert not annotated_win._actions.add_point_to_edge.isEnabled()
+
+    p0, p1 = shape.points[0], shape.points[1]
+    qtbot.mouseMove(
+        canvas, pos=image_to_widget_pos(canvas=canvas, image_pos=(p0 + p1) / 2)
+    )
+    qtbot.wait(100)
+
+    assert annotated_win._actions.add_point_to_edge.isEnabled()
+    annotated_win._actions.add_point_to_edge.trigger()
+    qtbot.wait(50)
+
+    assert len(shape.points) == num_points_before + 1
+
+    _save_and_check(win=annotated_win, tmp_path=tmp_path)
+    close_or_pause(qtbot=qtbot, widget=annotated_win, pause=pause)
+
+
+@pytest.mark.gui
 def test_remove_point_from_shape(
     qtbot: QtBot,
     annotated_win: MainWindow,

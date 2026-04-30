@@ -35,9 +35,14 @@ from labelme import __appname__
 from labelme import __version__
 from labelme._automation import bbox_from_text
 from labelme._automation._osam_session import OsamSession
-from labelme._label_file import LabelFile
+from labelme._label_file import LABEL_FILE_SUFFIX
+from labelme._label_file import LabelData
 from labelme._label_file import LabelFileError
 from labelme._label_file import ShapeDict
+from labelme._label_file import is_label_file_path
+from labelme._label_file import read_image_file
+from labelme._label_file import read_label_file
+from labelme._label_file import write_label_file
 from labelme._shape_clipboard import ShapeClipboard
 from labelme.config import load_config
 from labelme.shape import Shape
@@ -188,7 +193,7 @@ class MainWindow(QtWidgets.QMainWindow):
     _output_dir: Path | None
     _image: QtGui.QImage
     _image_data: bytes | None
-    _label_file: LabelFile | None
+    _label_file_path: str | None
     _image_path: str | None
     _prev_image_path: str | None
     _other_data: dict | None
@@ -964,7 +969,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._output_dir = Path(output_dir) if output_dir else None
 
         self._image = QtGui.QImage()
-        self._label_file = None
+        self._label_file_path = None
         self._image_path = None
         self._prev_image_path = None
         self._other_data = None
@@ -1314,7 +1319,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._docks.label_list.clear()
         self._image_path = None
         self._image_data = None
-        self._label_file = None
+        self._label_file_path = None
         self._other_data = None
         self._canvas_widgets.canvas.reset_state()
 
@@ -1627,27 +1632,23 @@ class MainWindow(QtWidgets.QMainWindow):
             widget.addItem(item)
 
     def save_labels(self, label_path: str) -> bool:
-        lf = LabelFile()
-
         shapes = [
             _shape_to_dict(s)
             for item in self._docks.label_list
             if (s := item.shape()) is not None
         ]
-        flags = {}
+        flags: dict[str, bool] = {}
         for i in range(self._docks.flag_list.count()):
             item = self._docks.flag_list.item(i)
             assert item
-            key = item.text()
-            flag = item.checkState() == Qt.Checked
-            flags[key] = flag
+            flags[item.text()] = item.checkState() == Qt.Checked
         try:
             assert self._image_path
             label_dir = Path(label_path).parent
             image_path = os.path.relpath(self._image_path, label_dir)
             image_data = self._image_data if self._config["with_image_data"] else None
             label_dir.mkdir(parents=True, exist_ok=True)
-            lf.save(
+            write_label_file(
                 filename=label_path,
                 shapes=shapes,
                 image_path=image_path,
@@ -1657,7 +1658,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 other_data=self._other_data,
                 flags=flags,
             )
-            self._label_file = lf
+            self._label_file_path = label_path
             items = self._docks.file_list.findItems(self._image_path, Qt.MatchExactly)
             if len(items) > 0:
                 if len(items) != 1:
@@ -1922,6 +1923,43 @@ class MainWindow(QtWidgets.QMainWindow):
             target = item.checkState() == Qt.Unchecked if value is None else value
             item.setCheckState(Qt.Checked if target else Qt.Unchecked)
 
+    def _open_label_file_into_state(self, label_path: str) -> LabelData | None:
+        try:
+            label_data = read_label_file(filename=label_path)
+        except LabelFileError as e:
+            self.show_error_message(
+                self.tr("Error opening file"),
+                self.tr(
+                    "<p><b>%s</b></p><p>Make sure <i>%s</i> is a valid label file.</p>"
+                )
+                % (e, label_path),
+            )
+            self.show_status_message(self.tr("Error reading %s") % label_path)
+            return None
+        self._label_file_path = label_path
+        self._image_data = label_data.image_data
+        self._image_path = str(Path(label_path).parent / label_data.image_path)
+        self._other_data = label_data.other_data
+        return label_data
+
+    def _open_image_into_state(self, image_path: str) -> bool:
+        try:
+            image_data = read_image_file(filename=image_path)
+        except OSError as e:
+            self.show_error_message(
+                self.tr("Error opening file"),
+                self.tr(
+                    "<p><b>%s</b></p><p>Make sure <i>%s</i> is a valid image file.</p>"
+                )
+                % (e, image_path),
+            )
+            self.show_status_message(self.tr("Error reading %s") % image_path)
+            return False
+        self._image_data = image_data
+        self._image_path = image_path
+        self._label_file_path = None
+        return True
+
     def _load_file(self, image_or_label_path: str) -> None:
         # changing fileListWidget loads file
         if image_or_label_path in self.image_list and (
@@ -1956,50 +1994,18 @@ class MainWindow(QtWidgets.QMainWindow):
         )
 
         t0_load_file = time.time()
-        if QtCore.QFile.exists(
-            label_path := _resolve_label_path(
-                image_or_label_path=image_or_label_path,
-                output_dir=self._output_dir,
-            )
-        ):
-            try:
-                self._label_file = LabelFile(label_path)
-            except LabelFileError as e:
-                self.show_error_message(
-                    self.tr("Error opening file"),
-                    self.tr(
-                        "<p><b>%s</b></p>"
-                        "<p>Make sure <i>%s</i> is a valid label file.</p>"
-                    )
-                    % (e, label_path),
-                )
-                self.show_status_message(self.tr("Error reading %s") % label_path)
+        label_path: str = _resolve_label_path(
+            image_or_label_path=image_or_label_path,
+            output_dir=self._output_dir,
+        )
+        label_data: LabelData | None = None
+        if QtCore.QFile.exists(label_path):
+            label_data = self._open_label_file_into_state(label_path=label_path)
+            if label_data is None:
                 return
-            assert self._label_file is not None
-            self._image_data = self._label_file.image_data
-            assert self._label_file.image_path
-            self._image_path = str(
-                Path(label_path).parent / self._label_file.image_path
-            )
-            self._other_data = self._label_file.other_data
         else:
-            image_path: str = image_or_label_path
-            try:
-                self._image_data = LabelFile.load_image_file(image_path)
-            except OSError as e:
-                self.show_error_message(
-                    self.tr("Error opening file"),
-                    self.tr(
-                        "<p><b>%s</b></p>"
-                        "<p>Make sure <i>%s</i> is a valid image file.</p>"
-                    )
-                    % (e, image_path),
-                )
-                self.show_status_message(self.tr("Error reading %s") % image_path)
+            if not self._open_image_into_state(image_path=image_or_label_path):
                 return
-            if self._image_data:
-                self._image_path = image_path
-            self._label_file = None
         assert self._image_data is not None
         t0 = time.time()
         image = QtGui.QImage.fromData(self._image_data)
@@ -2024,15 +2030,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self._canvas_widgets.canvas.load_pixmap(QtGui.QPixmap.fromImage(image))
         logger.debug("Loaded pixmap in {:.0f}ms", (time.time() - t0) * 1000)
         flags = {k: False for k in self._config["flags"] or []}
-        if self._label_file:
+        if label_data is not None:
             self._load_shapes(
                 shapes=_shapes_from_dicts(
-                    shape_dicts=self._label_file.shapes,
+                    shape_dicts=label_data.shapes,
                     label_flags=self._config["label_flags"],
                 )
             )
-            if self._label_file.flags is not None:
-                flags.update(self._label_file.flags)
+            flags.update(label_data.flags)
         self._load_flags(flags=flags, widget=self._docks.flag_list)
         if prev_shapes and self.has_no_shapes():
             self._load_shapes(shapes=prev_shapes, replace=False)
@@ -2172,7 +2177,7 @@ class MainWindow(QtWidgets.QMainWindow):
             for fmt in QtGui.QImageReader.supportedImageFormats()
         ]
         filters = self.tr("Image & Label files (%s)") % " ".join(
-            formats + [f"*{LabelFile.suffix}"]
+            formats + [f"*{LABEL_FILE_SUFFIX}"]
         )
         image_or_label_path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
@@ -2226,8 +2231,8 @@ class MainWindow(QtWidgets.QMainWindow):
         assert not self._image.isNull(), "cannot save empty image"
 
         label_path: str | None = None
-        if not save_as and self._label_file:
-            label_path = self._label_file.filename
+        if not save_as and self._label_file_path is not None:
+            label_path = self._label_file_path
         if label_path is None:
             label_path = self.prompt_save_file_path()
 
@@ -2241,14 +2246,14 @@ class MainWindow(QtWidgets.QMainWindow):
     def prompt_save_file_path(self) -> str:
         assert self._image_path is not None
         caption = self.tr("%s - Choose File") % __appname__
-        filters = self.tr("Label files (*%s)") % LabelFile.suffix
+        filters = self.tr("Label files (*%s)") % LABEL_FILE_SUFFIX
         dlg = QtWidgets.QFileDialog(
             parent=self,
             caption=caption,
             directory=str(self._output_dir or Path(self._image_path).parent),
             filter=filters,
         )
-        dlg.setDefaultSuffix(LabelFile.suffix[1:])
+        dlg.setDefaultSuffix(LABEL_FILE_SUFFIX[1:])
         dlg.setAcceptMode(QtWidgets.QFileDialog.AcceptSave)
         dlg.setOption(QtWidgets.QFileDialog.DontConfirmOverwrite, False)
         dlg.setOption(QtWidgets.QFileDialog.DontUseNativeDialog, False)
@@ -2259,7 +2264,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 image_or_label_path=self._image_path,
                 output_dir=self._output_dir,
             ),
-            filter=self.tr("Label files (*%s)") % LabelFile.suffix,
+            filter=self.tr("Label files (*%s)") % LABEL_FILE_SUFFIX,
         )
         return label_path
 
@@ -2419,7 +2424,7 @@ class MainWindow(QtWidgets.QMainWindow):
         if not file_or_dir:
             raise ValueError("file_or_dir cannot be empty")
 
-        if LabelFile.is_label_file(filename=file_or_dir):
+        if is_label_file_path(filename=file_or_dir):
             self._docks.file_list.clear()
             self._docks.file_dock.setEnabled(False)
             self._docks.file_dock.setToolTip(
@@ -2634,11 +2639,11 @@ def _format_window_title(
 
 
 def _resolve_label_path(*, image_or_label_path: str, output_dir: Path | None) -> str:
-    if LabelFile.is_label_file(filename=image_or_label_path):
+    if is_label_file_path(filename=image_or_label_path):
         return image_or_label_path
     image_path = Path(image_or_label_path)
     parent = output_dir if output_dir is not None else image_path.parent
-    return str(parent / f"{image_path.stem}{LabelFile.suffix}")
+    return str(parent / f"{image_path.stem}{LABEL_FILE_SUFFIX}")
 
 
 def _make_image_list_item(

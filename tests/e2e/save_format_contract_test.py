@@ -144,7 +144,7 @@ def test_round_trip_mask_shape_via_fixture(
         ],
         "imagePath": "2011_000003.jpg",
         "imageData": img_b64,
-        "imageHeight": 281,
+        "imageHeight": 338,
         "imageWidth": 500,
     }
     with open(fixture_json, "w") as f:

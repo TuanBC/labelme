@@ -1337,25 +1337,24 @@ class Canvas(QtWidgets.QWidget):
         else:
             self._cancel_current_shape()
 
+    def _reset_interaction_state(self) -> None:
+        self.current = None
+        self.hovered_shape = None
+        self.hovered_vertex = None
+        self.hovered_edge = None
+
     def load_pixmap(self, pixmap: QtGui.QPixmap, clear_shapes: bool = True) -> None:
+        pixmap_arr = labelme.utils.img_qt_to_arr(img_qt=pixmap.toImage())
         self.pixmap = pixmap
-        self._pixmap_hash = hash(
-            labelme.utils.img_qt_to_arr(img_qt=self.pixmap.toImage()).tobytes()
-        )
+        self._pixmap_hash = hash(pixmap_arr.tobytes())
         if clear_shapes:
             self.shapes = []
         self.update()
 
     def load_shapes(self, shapes: list[Shape], replace: bool = True) -> None:
-        if replace:
-            self.shapes = list(shapes)
-        else:
-            self.shapes.extend(shapes)
+        self.shapes = list(shapes) if replace else self.shapes + list(shapes)
         self.backup_shapes()
-        self.current = None
-        self.hovered_shape = None
-        self.hovered_vertex = None
-        self.hovered_edge = None
+        self._reset_interaction_state()
         self.update()
 
     def set_shape_visible(self, shape: Shape, value: bool) -> None:

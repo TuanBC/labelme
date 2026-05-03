@@ -420,16 +420,6 @@
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>&amp;Зберегти попередній масштаб</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>Зберегти попередній масштаб масштабування</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>&amp;Припасувати вікно</translation>
     </message>
@@ -866,6 +856,11 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>Вставити нову точку на ребрі полігона під курсором</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>&amp;Зберегти попередній масштаб</translation>
     </message>
 </context>
 </TS>

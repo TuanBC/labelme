@@ -540,16 +540,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>前の倍率を保持(&amp;K)</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>前のズーム倍率を保持</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>ウィンドウに
 合わせる(&amp;F)</translation>
@@ -877,6 +867,11 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>カーソル位置のポリゴンの辺に新しい頂点を挿入</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>前のズームを保持(&amp;K)</translation>
     </message>
 </context>
 </TS>

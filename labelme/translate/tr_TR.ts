@@ -531,16 +531,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>Önceki Ölçeği &amp;Koru</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>Önceki yakınlaştırma ölçeğini koru</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>Pencereye &amp;Sığdır</translation>
     </message>
@@ -866,6 +856,11 @@ Lütfen farklı bir model seçin veya AI-Box modunu kullanın.</translation>
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>Üzerinde durulan poligon kenarına yeni bir nokta ekle</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>Önceki &amp;Yakınlaştırmayı Koru</translation>
     </message>
 </context>
 </TS>

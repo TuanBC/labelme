@@ -528,16 +528,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>نگه داشتن مقیاس قبلی(&amp;K)</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>نگه داشتن مقیاس زوم قبلی</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>تناسب با پنجره(&amp;F)</translation>
     </message>
@@ -863,6 +853,11 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>درج یک نقطه جدید در لبه پلیگانی که اشاره‌گر روی آن است</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>نگه داشتن بزرگ‌نمایی قبلی(&amp;K)</translation>
     </message>
 </context>
 </TS>

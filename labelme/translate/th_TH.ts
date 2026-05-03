@@ -528,16 +528,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>คงระดับซูมก่อนหน้า (&amp;K)</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>คงระดับซูมก่อนหน้า</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>พอดีหน้าต่าง (&amp;F)</translation>
     </message>
@@ -863,6 +853,11 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>แทรกจุดใหม่บนขอบของรูปหลายเหลี่ยมที่เคอร์เซอร์ชี้อยู่</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>คงระดับซูมก่อนหน้า (&amp;K)</translation>
     </message>
 </context>
 </TS>

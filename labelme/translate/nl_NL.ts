@@ -528,16 +528,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>Vorige Schaal &amp;behouden</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>Vorige zoomschaal behouden</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>Aanpassen aan &amp;venster</translation>
     </message>
@@ -863,6 +853,11 @@ Selecteer een ander model of gebruik de AI-Box-modus.</translation>
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>Nieuw punt invoegen op de aangewezen polygoonrand</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>Vorige Zoom &amp;behouden</translation>
     </message>
 </context>
 </TS>

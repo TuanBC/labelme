@@ -420,16 +420,6 @@
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>&amp;Διατήρηση προηγούμενης κλίμακας</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>Διατήρηση προηγούμενης κλίμακας εστίασης</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>&amp;Προσαρμογή παραθύρου</translation>
     </message>
@@ -865,6 +855,11 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>Εισαγωγή νέου σημείου στην επιλεγμένη ακμή πολυγώνου</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>&amp;Διατήρηση προηγούμενου ζουμ</translation>
     </message>
 </context>
 </TS>

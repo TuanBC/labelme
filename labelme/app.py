@@ -375,15 +375,16 @@ class MainWindow(QtWidgets.QMainWindow):
             tip=self.tr("Delete current label file"),
             enabled=False,
         )
-        toggle_keep_prev_mode = action(
+        keep_prev_action = action(
             text=self.tr("Keep Previous Annotation"),
-            slot=self.toggle_keep_prev_mode,
+            slot=lambda: self._config.__setitem__(
+                "keep_prev", not self._config["keep_prev"]
+            ),
             shortcut=shortcuts["toggle_keep_prev_mode"],
-            icon=None,
             tip=self.tr('Toggle "keep previous annotation" mode'),
             checkable=True,
+            checked=self._config["keep_prev"],
         )
-        toggle_keep_prev_mode.setChecked(self._config["keep_prev"])
         toggle_keep_prev_brightness_contrast = action(
             text=self.tr("Keep Previous Brightness/Contrast"),
             slot=lambda: self._config.__setitem__(
@@ -741,7 +742,7 @@ class MainWindow(QtWidgets.QMainWindow):
             None,
             remove_point,
             None,
-            toggle_keep_prev_mode,
+            keep_prev_action,
         )
         return _Actions(
             about=about,
@@ -753,7 +754,7 @@ class MainWindow(QtWidgets.QMainWindow):
             open=open_,
             close=close,
             delete_file=delete_file,
-            toggle_keep_prev_mode=toggle_keep_prev_mode,
+            toggle_keep_prev_mode=keep_prev_action,
             toggle_keep_prev_brightness_contrast=toggle_keep_prev_brightness_contrast,
             delete=delete,
             edit=edit,
@@ -2375,9 +2376,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def current_path(self) -> str:
         return str(Path(self._image_path).parent) if self._image_path else "."
-
-    def toggle_keep_prev_mode(self) -> None:
-        self._config["keep_prev"] = not self._config["keep_prev"]
 
     def remove_selected_point(self) -> None:
         self._canvas_widgets.canvas.remove_selected_point()

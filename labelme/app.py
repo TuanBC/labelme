@@ -1209,7 +1209,7 @@ class MainWindow(QtWidgets.QMainWindow):
         )
 
     def mark_dirty(self) -> None:
-        # Even if we autosave the file, we keep the ability to undo
+        # Autosave does not clear the undo stack; keep the undo action available.
         self._actions.undo.setEnabled(self._canvas_widgets.canvas.can_restore_shape)
 
         if self._actions.save_auto.isChecked():

@@ -82,9 +82,9 @@ you can download the standalone executable from ["Install Labelme as App"](https
 
 It's a one-time payment for lifetime access, and it helps us to maintain this project.
 
-### Option 3: Using a package manager in each Linux distribution
+### Option 3: Linux distribution packages
 
-In some Linux distributions, you can install labelme via their package managers (e.g., apt, pacman). The following systems are currently available:
+On some Linux distributions, labelme is also packaged in the system's native repository and can be installed with the distribution's standard package tooling. The badge below tracks which distributions currently ship labelme and which version each one provides:
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/labelme.svg)](https://repology.org/project/labelme/versions)
 

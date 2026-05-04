@@ -396,13 +396,15 @@ def _paint_mask(*, painter: QtGui.QPainter, shape: Shape) -> None:
     image_to_draw = np.zeros(shape.mask.shape + (4,), dtype=np.uint8)
     image_to_draw[shape.mask] = fill.getRgb()
     qimage = QtGui.QImage.fromData(labelme.utils.img_arr_to_data(image_to_draw))
-    qimage = qimage.scaled(
-        qimage.size() * shape.scale,
-        QtCore.Qt.IgnoreAspectRatio,
-        QtCore.Qt.SmoothTransformation,
-    )
     origin = shape.points[0]
-    painter.drawImage(_scale_point(point=origin, scale=shape.scale), qimage)
+    target_top_left = _scale_point(point=origin, scale=shape.scale)
+    target_rect = QtCore.QRectF(
+        target_top_left.x(),
+        target_top_left.y(),
+        qimage.width() * shape.scale,
+        qimage.height() * shape.scale,
+    )
+    painter.drawImage(target_rect, qimage)
     painter.drawPath(
         _mask_contour_path(mask=shape.mask, origin=origin, scale=shape.scale)
     )

@@ -539,16 +539,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>&amp;Előző méretarány megtartása</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>Előző nagyítási méretarány megtartása</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>&amp;Ablakhoz igazítás</translation>
     </message>
@@ -869,6 +859,11 @@ Kérjük, válasszon másik modellt vagy használja az AI-Box módot.</translati
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>Új pont beszúrása a kijelölt sokszög élre</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>&amp;Előző nagyítás megtartása</translation>
     </message>
 </context>
 </TS>

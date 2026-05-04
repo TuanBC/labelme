@@ -142,7 +142,7 @@ class _Actions(NamedTuple):
     create_ai_box_to_shape_mode: QtWidgets.QAction
     open_next_img: QtWidgets.QAction
     open_prev_img: QtWidgets.QAction
-    keep_prev_scale: QtWidgets.QAction
+    keep_prev_zoom: QtWidgets.QAction
     fit_window: QtWidgets.QAction
     fit_width: QtWidgets.QAction
     brightness_contrast: QtWidgets.QAction
@@ -558,13 +558,14 @@ class MainWindow(QtWidgets.QMainWindow):
             tip=self.tr("Open prev (hold Ctl+Shift to copy labels)"),
             enabled=False,
         )
-        keep_prev_scale = action(
-            self.tr("&Keep Previous Scale"),
-            self.set_keep_prev_scale,
-            tip=self.tr("Keep previous zoom scale"),
+        keep_prev_zoom = action(
+            text=self.tr("&Keep Previous Zoom"),
+            slot=lambda: self._config.__setitem__(
+                "keep_prev_scale",
+                not self._config["keep_prev_scale"],
+            ),
             checkable=True,
             checked=self._config["keep_prev_scale"],
-            enabled=True,
         )
         fit_window = action(
             self.tr("&Fit Window"),
@@ -776,7 +777,7 @@ class MainWindow(QtWidgets.QMainWindow):
             create_ai_box_to_shape_mode=create_ai_box_to_shape_mode,
             open_next_img=open_next_img,
             open_prev_img=open_prev_img,
-            keep_prev_scale=keep_prev_scale,
+            keep_prev_zoom=keep_prev_zoom,
             fit_window=fit_window,
             fit_width=fit_width,
             brightness_contrast=brightness_contrast,
@@ -875,7 +876,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self._actions.zoom_in,
                 self._actions.zoom_out,
                 self._actions.zoom_org,
-                self._actions.keep_prev_scale,
+                self._actions.keep_prev_zoom,
                 None,
                 self._actions.fit_window,
                 self._actions.fit_width,
@@ -1857,10 +1858,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def _sync_zoom_mode_actions(self) -> None:
         self._actions.fit_window.setChecked(self._zoom_mode == _ZoomMode.FIT_WINDOW)
         self._actions.fit_width.setChecked(self._zoom_mode == _ZoomMode.FIT_WIDTH)
-
-    def set_keep_prev_scale(self, enabled: bool) -> None:
-        self._config["keep_prev_scale"] = enabled
-        self._actions.keep_prev_scale.setChecked(enabled)
 
     def _on_brightness_contrast_changed(self, qimage: QtGui.QImage) -> None:
         self._canvas_widgets.canvas.load_pixmap(

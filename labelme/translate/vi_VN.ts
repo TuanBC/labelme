@@ -528,16 +528,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>Giữ Tỷ lệ Trước đó(&amp;K)</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>Giữ tỷ lệ thu phóng trước đó</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>Vừa Cửa sổ(&amp;F)</translation>
     </message>
@@ -863,6 +853,11 @@ Vui lòng chọn mô hình khác hoặc sử dụng chế độ AI-Box.</transla
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>Chèn điểm mới vào cạnh đa giác đang trỏ tới</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>Giữ &amp;Mức Phóng to Trước đó</translation>
     </message>
 </context>
 </TS>

@@ -528,16 +528,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>Zachowaj poprzednią skalę (&amp;K)</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>Zachowaj poprzednią skalę powiększenia</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>Dopasuj do okna (&amp;F)</translation>
     </message>
@@ -863,6 +853,11 @@ Wybierz inny model lub użyj trybu AI-Box.</translation>
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>Wstaw nowy punkt na wskazywanej krawędzi wielokąta</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>Zachowaj poprzedni zoom (&amp;K)</translation>
     </message>
 </context>
 </TS>

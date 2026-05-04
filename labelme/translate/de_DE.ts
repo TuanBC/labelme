@@ -539,16 +539,6 @@ Formen</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&amp;Keep Previous Scale</source>
-        <translation>&amp;Vorherige Skalierung beibehalten</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>Keep previous zoom scale</source>
-        <translation>Vorherige Zoomskalierung beibehalten</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>&amp;Fit Window</source>
         <translation>&amp;An Fenster anpassen</translation>
     </message>
@@ -869,6 +859,11 @@ Bitte wählen Sie ein anderes Modell oder verwenden Sie den AI-Box-Modus.</trans
         <location filename="../app.py" line="0"/>
         <source>Insert a new point at the hovered polygon edge</source>
         <translation>Neuen Punkt an der ausgewählten Polygonkante einfügen</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&amp;Keep Previous Zoom</source>
+        <translation>&amp;Vorherigen Zoom beibehalten</translation>
     </message>
 </context>
 </TS>

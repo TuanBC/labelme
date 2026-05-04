@@ -4,7 +4,6 @@ from collections.abc import Callable
 from collections.abc import Sequence
 from math import sqrt
 from pathlib import Path
-from typing import Any
 from typing import Final
 
 import numpy as np
@@ -92,7 +91,7 @@ def distance(p: QtCore.QPointF) -> float:
 def distance_to_line(
     point: QtCore.QPointF,
     line: tuple[QtCore.QPointF, QtCore.QPointF],
-) -> np.floating[Any]:
+) -> float:
     start, end = line
     sx, sy = start.x(), start.y()
     ex, ey = end.x(), end.y()
@@ -102,14 +101,14 @@ def distance_to_line(
     edge_y = ey - sy
     length_sq = edge_x * edge_x + edge_y * edge_y
     if length_sq == 0:
-        return np.hypot(px - sx, py - sy)
+        return float(np.hypot(px - sx, py - sy))
 
     t = ((px - sx) * edge_x + (py - sy) * edge_y) / length_sq
     t = min(1.0, max(0.0, t))
 
     nearest_x = sx + t * edge_x
     nearest_y = sy + t * edge_y
-    return np.hypot(px - nearest_x, py - nearest_y)
+    return float(np.hypot(px - nearest_x, py - nearest_y))
 
 
 def format_shortcut(text: str) -> str:

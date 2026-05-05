@@ -872,7 +872,6 @@ class Canvas(QtWidgets.QWidget):
         self.update()
 
     def select_shape_point(self, point: QPointF, multiple_selection_mode: bool) -> None:
-        """Select the first shape created which contains this point."""
         if self.hovered_vertex is not None:
             assert self.hovered_shape is not None
             self.hovered_shape.highlight_vertex(

@@ -16,6 +16,7 @@ from PyQt5 import QtGui
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QPoint
 from PyQt5.QtCore import QPointF
+from PyQt5.QtCore import QRectF
 from PyQt5.QtCore import Qt
 
 import labelme.utils
@@ -77,7 +78,7 @@ class Canvas(QtWidgets.QWidget):
 
     prev_point: QPointF
     prev_move_point: QPointF
-    _drag_anchor: tuple[QPointF, QtCore.QRectF]
+    _drag_anchor: tuple[QPointF, QRectF]
 
     _pan_anchor: QPointF | None
 
@@ -119,10 +120,7 @@ class Canvas(QtWidgets.QWidget):
         self.line = Shape()
         self.prev_point = QPointF()
         self.prev_move_point = QPointF()
-        self._drag_anchor: tuple[QPointF, QtCore.QRectF] = (
-            QPointF(),
-            QtCore.QRectF(),
-        )
+        self._drag_anchor = (QPointF(), QRectF())
         self.scale: float = 1.0
         self._osam_session = None
         self._hide_background: bool = False
@@ -911,7 +909,7 @@ class Canvas(QtWidgets.QWidget):
 
     def _record_drag_anchor(self, click: QPointF) -> None:
         if not self.selected_shapes:
-            self._drag_anchor = (QPointF(), QtCore.QRectF())
+            self._drag_anchor = (QPointF(), QRectF())
             return
         bounds = self.selected_shapes[0].bounds()
         for s in self.selected_shapes[1:]:

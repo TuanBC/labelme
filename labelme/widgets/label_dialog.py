@@ -214,45 +214,73 @@ class LabelDialog(QtWidgets.QDialog):
         description: str | None = None,
         flags_disabled: bool = False,
     ) -> tuple[str, dict[str, bool], int | None, str] | tuple[None, None, None, None]:
+        # text=None preserves whatever was previously typed in the edit field.
+        if text is None:
+            text = self.edit.text()
+
+        self._fit_label_list_to_content()
+        self._apply_dialog_state(
+            text=text,
+            group_id=group_id,
+            description=description or "",
+            flags=flags,
+            flags_disabled=flags_disabled,
+        )
+        self.edit.setFocus(QtCore.Qt.PopupFocusReason)
+        if move:
+            self.move(QtGui.QCursor.pos())
+
+        if not self.exec_():
+            return None, None, None, None
+        return self._read_dialog_state()
+
+    def _fit_label_list_to_content(self) -> None:
         if self._fit_to_content["row"]:
             self.label_list.setMinimumHeight(
                 self.label_list.sizeHintForRow(0) * self.label_list.count() + 2
             )
         if self._fit_to_content["column"]:
             self.label_list.setMinimumWidth(self.label_list.sizeHintForColumn(0) + 2)
-        # if text is None, the previous label in self.edit is kept
-        if text is None:
-            text = self.edit.text()
-        # description is always initialized by empty text c.f., self.edit.text
-        if description is None:
-            description = ""
+
+    def _apply_dialog_state(
+        self,
+        text: str,
+        group_id: int | None,
+        description: str,
+        flags: dict[str, bool] | None,
+        flags_disabled: bool,
+    ) -> None:
         self.edit_description.setPlainText(description)
-        self._restore_or_reset_flags(text, flags)
+        self._restore_or_reset_flags(text=text, flags=flags)
         if flags_disabled:
             for i in range(self._flags_layout.count()):
                 self._flags_layout.itemAt(i).widget().setDisabled(True)
+
         self.edit.setText(text)
-        self.edit.setSelection(0, len(text))
+        self.edit.selectAll()
+
         if group_id is None:
             self.edit_group_id.clear()
         else:
             self.edit_group_id.setText(str(group_id))
+
+        self._highlight_matching_label(text)
+
+    def _highlight_matching_label(self, text: str) -> None:
         items = self.label_list.findItems(text, QtCore.Qt.MatchFixedString)
-        if items:
-            if len(items) != 1:
-                logger.warning(f"Label list has duplicate '{text}'")
-            self.label_list.setCurrentItem(items[0])
-            row = self.label_list.row(items[0])
-            self.edit.completer().setCurrentRow(row)
-        self.edit.setFocus(QtCore.Qt.PopupFocusReason)
-        if move:
-            self.move(QtGui.QCursor.pos())
-        if self.exec_():
-            return (
-                self.edit.text(),
-                self._current_flags(),
-                self._current_group_id(),
-                self.edit_description.toPlainText(),
-            )
-        else:
-            return None, None, None, None
+        if not items:
+            return
+        if len(items) != 1:
+            logger.warning(f"Label list has duplicate '{text}'")
+        self.label_list.setCurrentItem(items[0])
+        self.edit.completer().setCurrentRow(self.label_list.row(items[0]))
+
+    def _read_dialog_state(
+        self,
+    ) -> tuple[str, dict[str, bool], int | None, str]:
+        return (
+            self.edit.text(),
+            self._current_flags(),
+            self._current_group_id(),
+            self.edit_description.toPlainText(),
+        )

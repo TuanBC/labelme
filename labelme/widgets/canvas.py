@@ -22,6 +22,7 @@ from PyQt5.QtCore import Qt
 import labelme.utils
 from labelme._automation import OsamSession
 from labelme._automation import polygon_from_mask
+from labelme.shape import POLYLINE_SHAPE_TYPES
 from labelme.shape import Shape
 
 from .download import download_ai_model
@@ -445,7 +446,7 @@ class Canvas(QtWidgets.QWidget):
         current = self.current
         assert current is not None
         mode = self.create_mode
-        if mode in ("polygon", "linestrip"):
+        if mode in POLYLINE_SHAPE_TYPES:
             self.line.points = [current[-1], pos]
             self.line.point_labels = [1, 1]
         elif mode == "ai_points_to_shape":
@@ -1307,7 +1308,7 @@ class Canvas(QtWidgets.QWidget):
         self.current = self.shapes.pop()
         self.current.open()
         self.current.unrefine()
-        if self.create_mode in ("polygon", "linestrip"):
+        if self.create_mode in POLYLINE_SHAPE_TYPES:
             self.line.points = [self.current[-1], self.current[0]]
         elif self.create_mode in ("rectangle", "line", "circle", "ai_box_to_shape"):
             self.current.points = self.current.points[0:1]

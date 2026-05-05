@@ -19,6 +19,8 @@ import labelme.utils
 _P_SQUARE: Final[int] = 0
 _P_ROUND: Final[int] = 1
 
+POLYLINE_SHAPE_TYPES: Final[tuple[str, ...]] = ("polygon", "linestrip")
+
 
 class _Highlight(NamedTuple):
     index: int
@@ -125,7 +127,7 @@ class Shape:
         self.point_labels.append(label)
 
     def can_add_point(self) -> bool:
-        return self.shape_type in ["polygon", "linestrip"]
+        return self.shape_type in POLYLINE_SHAPE_TYPES
 
     def pop_point(self) -> QtCore.QPointF | None:
         if not self.points:

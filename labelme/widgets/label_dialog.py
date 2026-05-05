@@ -37,80 +37,97 @@ class LabelDialog(QtWidgets.QDialog):
         fit_to_content: dict[str, bool] | None = None,
         flags: dict[str, list[str]] | None = None,
     ) -> None:
+        super().__init__(parent)
+
         if fit_to_content is None:
             fit_to_content = {"row": False, "column": True}
         self._fit_to_content = fit_to_content
-
-        super().__init__(parent)
-        self.edit = LabelQLineEdit()
-        self.edit.setPlaceholderText(text)
-        self.edit.setValidator(labelme.utils.label_validator())
-        self.edit.editingFinished.connect(self._on_editing_finished)
-        if flags:
-            self.edit.textChanged.connect(self._on_text_changed)
-        self.edit_group_id = QtWidgets.QLineEdit()
-        self.edit_group_id.setPlaceholderText("Group ID")
-        self.edit_group_id.setValidator(
-            QtGui.QRegExpValidator(QtCore.QRegExp(r"\d*"), None)
-        )
-        layout = QtWidgets.QVBoxLayout()
-        if show_text_field:
-            layout_edit = QtWidgets.QHBoxLayout()
-            layout_edit.addWidget(self.edit, 6)
-            layout_edit.addWidget(self.edit_group_id, 2)
-            layout.addLayout(layout_edit)
-        # buttons
-        bb = QtWidgets.QDialogButtonBox(
-            QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel,
-            QtCore.Qt.Horizontal,
-            self,
-        )
-        bb.accepted.connect(self._validate)
-        bb.rejected.connect(self.reject)
-        layout.addWidget(bb)
-        # label_list
-        self.label_list = QtWidgets.QListWidget()
-        if self._fit_to_content["row"]:
-            self.label_list.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        if self._fit_to_content["column"]:
-            self.label_list.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self._sort_labels = sort_labels
-        if labels:
-            self.label_list.addItems(labels)
-        if self._sort_labels:
-            self.label_list.sortItems()
-        else:
-            self.label_list.setDragDropMode(QtWidgets.QAbstractItemView.InternalMove)
-        self.label_list.currentItemChanged.connect(self._on_label_selected)
-        self.label_list.itemDoubleClicked.connect(self._on_label_double_clicked)
-        self.label_list.setFixedHeight(150)
+        self._flags = flags or {}
+
+        self.edit = self._build_label_edit(placeholder=text, has_flags=bool(flags))
+        self.edit_group_id = self._build_group_id_edit()
+        self.label_list = self._build_label_list(labels=labels)
         self.edit.set_list_widget(self.label_list)
-        layout.addWidget(self.label_list)
-        if flags is None:
-            flags = {}
-        self._flags = flags
         self._flags_layout = QtWidgets.QVBoxLayout()
         self._reset_flags()
-        layout.addItem(self._flags_layout)
-        # text edit
-        self.edit_description = QtWidgets.QTextEdit()
-        self.edit_description.setPlaceholderText("Label description")
-        self.edit_description.setFixedHeight(50)
-        layout.addWidget(self.edit_description)
-        self.setLayout(layout)
-        # completion
+        self.edit_description = self._build_description_edit()
+        button_box = self._build_button_box()
+
+        root = QtWidgets.QVBoxLayout(self)
+        if show_text_field:
+            edit_row = QtWidgets.QHBoxLayout()
+            edit_row.addWidget(self.edit, stretch=6)
+            edit_row.addWidget(self.edit_group_id, stretch=2)
+            root.addLayout(edit_row)
+        root.addWidget(button_box)
+        root.addWidget(self.label_list)
+        root.addItem(self._flags_layout)
+        root.addWidget(self.edit_description)
+
+        self.edit.setCompleter(self._build_completer(mode=completion))
+
+    def _build_label_edit(self, placeholder: str, has_flags: bool) -> LabelQLineEdit:
+        edit = LabelQLineEdit()
+        edit.setPlaceholderText(placeholder)
+        edit.setValidator(labelme.utils.label_validator())
+        edit.editingFinished.connect(self._on_editing_finished)
+        if has_flags:
+            edit.textChanged.connect(self._on_text_changed)
+        return edit
+
+    def _build_group_id_edit(self) -> QtWidgets.QLineEdit:
+        edit_group_id = QtWidgets.QLineEdit()
+        edit_group_id.setPlaceholderText("Group ID")
+        edit_group_id.setValidator(
+            QtGui.QRegExpValidator(QtCore.QRegExp(r"\d*"), parent=None)
+        )
+        return edit_group_id
+
+    def _build_label_list(self, labels: list[str] | None) -> QtWidgets.QListWidget:
+        label_list = QtWidgets.QListWidget()
+        if self._fit_to_content["row"]:
+            label_list.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        if self._fit_to_content["column"]:
+            label_list.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        if labels:
+            label_list.addItems(labels)
+        if self._sort_labels:
+            label_list.sortItems()
+        else:
+            label_list.setDragDropMode(QtWidgets.QAbstractItemView.InternalMove)
+        label_list.currentItemChanged.connect(self._on_label_selected)
+        label_list.itemDoubleClicked.connect(self._on_label_double_clicked)
+        label_list.setFixedHeight(150)
+        return label_list
+
+    def _build_description_edit(self) -> QtWidgets.QTextEdit:
+        description = QtWidgets.QTextEdit()
+        description.setPlaceholderText("Label description")
+        description.setFixedHeight(50)
+        return description
+
+    def _build_button_box(self) -> QtWidgets.QDialogButtonBox:
+        button_box = QtWidgets.QDialogButtonBox(
+            QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel,
+            orientation=QtCore.Qt.Horizontal,
+            parent=self,
+        )
+        button_box.accepted.connect(self._validate)
+        button_box.rejected.connect(self.reject)
+        return button_box
+
+    def _build_completer(self, mode: str) -> QtWidgets.QCompleter:
         completer = QtWidgets.QCompleter()
-        if completion == "startswith":
+        if mode == "startswith":
             completer.setCompletionMode(QtWidgets.QCompleter.InlineCompletion)
-            # Default settings.
-            # completer.setFilterMode(QtCore.Qt.MatchStartsWith)
-        elif completion == "contains":
+        elif mode == "contains":
             completer.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
             completer.setFilterMode(QtCore.Qt.MatchContains)
         else:
-            raise ValueError(f"Unsupported completion: {completion}")
+            raise ValueError(f"Unsupported completion: {mode}")
         completer.setModel(self.label_list.model())
-        self.edit.setCompleter(completer)
+        return completer
 
     def add_label_history(self, label: str) -> None:
         if self.label_list.findItems(label, QtCore.Qt.MatchExactly):
@@ -197,45 +214,73 @@ class LabelDialog(QtWidgets.QDialog):
         description: str | None = None,
         flags_disabled: bool = False,
     ) -> tuple[str, dict[str, bool], int | None, str] | tuple[None, None, None, None]:
+        # text=None preserves whatever was previously typed in the edit field.
+        if text is None:
+            text = self.edit.text()
+
+        self._fit_label_list_to_content()
+        self._apply_dialog_state(
+            text=text,
+            group_id=group_id,
+            description=description or "",
+            flags=flags,
+            flags_disabled=flags_disabled,
+        )
+        self.edit.setFocus(QtCore.Qt.PopupFocusReason)
+        if move:
+            self.move(QtGui.QCursor.pos())
+
+        if not self.exec_():
+            return None, None, None, None
+        return self._read_dialog_state()
+
+    def _fit_label_list_to_content(self) -> None:
         if self._fit_to_content["row"]:
             self.label_list.setMinimumHeight(
                 self.label_list.sizeHintForRow(0) * self.label_list.count() + 2
             )
         if self._fit_to_content["column"]:
             self.label_list.setMinimumWidth(self.label_list.sizeHintForColumn(0) + 2)
-        # if text is None, the previous label in self.edit is kept
-        if text is None:
-            text = self.edit.text()
-        # description is always initialized by empty text c.f., self.edit.text
-        if description is None:
-            description = ""
+
+    def _apply_dialog_state(
+        self,
+        text: str,
+        group_id: int | None,
+        description: str,
+        flags: dict[str, bool] | None,
+        flags_disabled: bool,
+    ) -> None:
         self.edit_description.setPlainText(description)
-        self._restore_or_reset_flags(text, flags)
+        self._restore_or_reset_flags(text=text, flags=flags)
         if flags_disabled:
             for i in range(self._flags_layout.count()):
                 self._flags_layout.itemAt(i).widget().setDisabled(True)
+
         self.edit.setText(text)
-        self.edit.setSelection(0, len(text))
+        self.edit.selectAll()
+
         if group_id is None:
             self.edit_group_id.clear()
         else:
             self.edit_group_id.setText(str(group_id))
+
+        self._highlight_matching_label(text)
+
+    def _highlight_matching_label(self, text: str) -> None:
         items = self.label_list.findItems(text, QtCore.Qt.MatchFixedString)
-        if items:
-            if len(items) != 1:
-                logger.warning(f"Label list has duplicate '{text}'")
-            self.label_list.setCurrentItem(items[0])
-            row = self.label_list.row(items[0])
-            self.edit.completer().setCurrentRow(row)
-        self.edit.setFocus(QtCore.Qt.PopupFocusReason)
-        if move:
-            self.move(QtGui.QCursor.pos())
-        if self.exec_():
-            return (
-                self.edit.text(),
-                self._current_flags(),
-                self._current_group_id(),
-                self.edit_description.toPlainText(),
-            )
-        else:
-            return None, None, None, None
+        if not items:
+            return
+        if len(items) != 1:
+            logger.warning(f"Label list has duplicate '{text}'")
+        self.label_list.setCurrentItem(items[0])
+        self.edit.completer().setCurrentRow(self.label_list.row(items[0]))
+
+    def _read_dialog_state(
+        self,
+    ) -> tuple[str, dict[str, bool], int | None, str]:
+        return (
+            self.edit.text(),
+            self._current_flags(),
+            self._current_group_id(),
+            self.edit_description.toPlainText(),
+        )

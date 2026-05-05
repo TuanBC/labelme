@@ -1735,10 +1735,6 @@ class MainWindow(QtWidgets.QMainWindow):
     # Callback functions:
 
     def _on_new_shape(self) -> None:
-        """Pop-up and give focus to the label editor.
-
-        position MUST be in global coordinates.
-        """
         items = self._docks.unique_label_list.selectedItems()
         text = None
         if items:

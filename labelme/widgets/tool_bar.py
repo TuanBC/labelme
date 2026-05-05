@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from PyQt5 import QtCore
 from PyQt5 import QtGui
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
@@ -19,17 +18,15 @@ class ToolBar(QtWidgets.QToolBar):
     ) -> None:
         super().__init__(title)
 
-        if font_base:
+        if font_base is not None:
             font = QtGui.QFont(font_base)
             font.setPointSizeF(font_base.pointSizeF() * 0.875)
             self.setFont(font)
 
         layout = self.layout()
-        m = (0, 0, 0, 0)
         layout.setSpacing(0)
-        layout.setContentsMargins(*m)
-        self.setContentsMargins(*m)
-        self.setWindowFlags(self.windowFlags() | QtCore.Qt.FramelessWindowHint)
+        layout.setContentsMargins(0, 0, 0, 0)
+        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setMovable(False)
         self.setFloatable(False)
 
@@ -47,13 +44,14 @@ class ToolBar(QtWidgets.QToolBar):
 
     def addAction(self, action: QtWidgets.QAction) -> None:  # ty: ignore[invalid-method-override]
         if isinstance(action, QtWidgets.QWidgetAction):
-            return super().addAction(action)
-        btn = QtWidgets.QToolButton()
-        btn.setDefaultAction(action)
-        btn.setToolButtonStyle(self.toolButtonStyle())
-        self.addWidget(btn)
-        layout = self.layout()
-        layout.itemAt(layout.count() - 1).setAlignment(QtCore.Qt.AlignCenter)
+            super().addAction(action)
+            return
+        button = QtWidgets.QToolButton(self)
+        button.setDefaultAction(action)
+        button.setToolButtonStyle(self.toolButtonStyle())
+        self.toolButtonStyleChanged.connect(button.setToolButtonStyle)
+        self.addWidget(button)
+        self.layout().setAlignment(button, Qt.AlignCenter)
 
     def _equalize_button_widths(self) -> None:
         layout = self.layout()

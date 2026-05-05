@@ -1187,8 +1187,8 @@ class Canvas(QtWidgets.QWidget):
         # d = distance(p1 - p2)
         # m = (p1-p2).manhattanLength()
         # print "d %.2f, m %d, %.2f" % (d, m, d - m)
-        # divide by scale to allow more precision when zoomed in
-        return labelme.utils.distance(p1 - p2) < (self.epsilon / self.scale)
+        threshold = self.epsilon / self.scale
+        return labelme.utils.distance(p1 - p2) < threshold
 
     # Required by QScrollArea: it queries these to compute the
     # scrollable viewport whenever adjustSize() is called.
@@ -1245,10 +1245,7 @@ class Canvas(QtWidgets.QWidget):
         if self.drawing():
             if key == Qt.Key_Escape and self.current:
                 self._cancel_current_shape()
-            elif (
-                key in (QtCore.Qt.Key_Return, QtCore.Qt.Key_Space)
-                and self.can_close_shape()
-            ):
+            elif key in (Qt.Key_Return, Qt.Key_Space) and self.can_close_shape():
                 self.finalise()
             elif modifiers == Qt.AltModifier:
                 self.snapping = False

@@ -52,11 +52,8 @@ class ToolBar(QtWidgets.QToolBar):
         btn.setDefaultAction(action)
         btn.setToolButtonStyle(self.toolButtonStyle())
         self.addWidget(btn)
-
-        # center align
-        for i in range(self.layout().count()):
-            if isinstance(self.layout().itemAt(i).widget(), QtWidgets.QToolButton):
-                self.layout().itemAt(i).setAlignment(QtCore.Qt.AlignCenter)
+        layout = self.layout()
+        layout.itemAt(layout.count() - 1).setAlignment(QtCore.Qt.AlignCenter)
 
     def _equalize_button_widths(self) -> None:
         layout = self.layout()

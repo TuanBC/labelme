@@ -911,7 +911,7 @@ class Canvas(QtWidgets.QWidget):
             self.offsets = QPointF(0.0, 0.0), QPointF(0.0, 0.0)
             return
 
-        rects = [s.bounding_rect() for s in self.selected_shapes]
+        rects = [s.bounds() for s in self.selected_shapes]
         left = min(r.left() for r in rects)
         top = min(r.top() for r in rects)
         right = max(r.right() for r in rects)
@@ -965,7 +965,7 @@ class Canvas(QtWidgets.QWidget):
             return False
 
         for shape in shapes:
-            shape.move_by(dp)
+            shape.translate(offset=dp)
         self.prev_point = pos
         return True
 

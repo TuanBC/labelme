@@ -639,11 +639,6 @@ les formes</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Error reading %s</source>
-        <translation>Erreur lors de la lecture de %s</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>%s chargé</translation>
     </message>
@@ -837,21 +832,6 @@ Veuillez sélectionner un autre modèle ou utiliser le mode AI-Box.</translation
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Vérifiez que &lt;i&gt;%s&lt;/i&gt; est un fichier d'étiquettes valide.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Vérifiez que &lt;i&gt;%s&lt;/i&gt; est un fichier image valide.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Vérifiez que &lt;i&gt;{0}&lt;/i&gt; est un fichier d'image valide.&lt;br/&gt;Formats d'image pris en charge : {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Permanently delete this label file? This action cannot be undone.</source>
         <translation>Supprimer définitivement ce fichier d'étiquettes ? Cette action est irréversible.</translation>
     </message>
@@ -864,6 +844,26 @@ Veuillez sélectionner un autre modèle ou utiliser le mode AI-Box.</translation
         <location filename="../app.py" line="0"/>
         <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
         <translation>Zoomer ou dézoomer l'image. Les raccourcis {} et {} fonctionnent également sur le canevas.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Allowed formats: {formats}</source>
+        <translation>Formats autorisés : {formats}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected label file could not be opened: {path}</source>
+        <translation>Impossible d'ouvrir le fichier d'étiquettes sélectionné : {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected image file could not be opened: {path}</source>
+        <translation>Impossible d'ouvrir le fichier image sélectionné : {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Failed to load: {path}</source>
+        <translation>Échec du chargement : {path}</translation>
     </message>
 </context>
 </TS>

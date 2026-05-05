@@ -1921,14 +1921,7 @@ class MainWindow(QtWidgets.QMainWindow):
         try:
             label_data = read_label_file(filename=label_path)
         except LabelFileError as e:
-            self.show_error_message(
-                self.tr("Error opening file"),
-                self.tr(
-                    "<p><b>%s</b></p><p>Check that <i>%s</i> is a valid label file.</p>"
-                )
-                % (e, label_path),
-            )
-            self.show_status_message(self.tr("Error reading %s") % label_path)
+            self._show_file_open_error(path=label_path, file_kind="label", exc=e)
             return None
         self._label_file_path = label_path
         self._image_data = label_data.image_data
@@ -1940,14 +1933,7 @@ class MainWindow(QtWidgets.QMainWindow):
         try:
             image_data = read_image_file(filename=image_path)
         except OSError as e:
-            self.show_error_message(
-                self.tr("Error opening file"),
-                self.tr(
-                    "<p><b>%s</b></p><p>Check that <i>%s</i> is a valid image file.</p>"
-                )
-                % (e, image_path),
-            )
-            self.show_status_message(self.tr("Error reading %s") % image_path)
+            self._show_file_open_error(path=image_path, file_kind="image", exc=e)
             return False
         self._image_data = image_data
         self._image_path = image_path
@@ -2006,18 +1992,16 @@ class MainWindow(QtWidgets.QMainWindow):
         logger.debug("Created QImage in {:.0f}ms", (time.time() - t0) * 1000)
 
         if image.isNull():
-            formats = [
+            formats = ", ".join(
                 f"*.{fmt.data().decode()}"
                 for fmt in QtGui.QImageReader.supportedImageFormats()
-            ]
-            self.show_error_message(
-                self.tr("Error opening file"),
-                self.tr(
-                    "<p>Check that <i>{0}</i> is a valid image file.<br/>"
-                    "Supported image formats: {1}</p>"
-                ).format(image_or_label_path, ",".join(formats)),
             )
-            self.show_status_message(self.tr("Error reading %s") % image_or_label_path)
+            extra = self.tr("Allowed formats: {formats}").format(formats=formats)
+            self._show_file_open_error(
+                path=image_or_label_path,
+                file_kind="image",
+                extra=extra,
+            )
             return
         self._image = image
         t0 = time.time()
@@ -2366,6 +2350,29 @@ class MainWindow(QtWidgets.QMainWindow):
         return QtWidgets.QMessageBox.critical(
             self, title, f"<p><b>{title}</b></p>{message}"
         )
+
+    def _show_file_open_error(
+        self,
+        *,
+        path: str,
+        file_kind: Literal["label", "image"],
+        exc: BaseException | None = None,
+        extra: str | None = None,
+    ) -> None:
+        if file_kind == "label":
+            message = self.tr(
+                "The selected label file could not be opened: {path}"
+            ).format(path=path)
+        else:
+            message = self.tr(
+                "The selected image file could not be opened: {path}"
+            ).format(path=path)
+        if exc is not None:
+            message = f"{message}\n\n{exc}"
+        if extra:
+            message = f"{message}\n\n{extra}"
+        QtWidgets.QMessageBox.critical(self, self.tr("Error opening file"), message)
+        self.show_status_message(self.tr("Failed to load: {path}").format(path=path))
 
     def current_path(self) -> str:
         return str(Path(self._image_path).parent) if self._image_path else "."

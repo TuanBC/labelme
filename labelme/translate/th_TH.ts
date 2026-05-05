@@ -633,11 +633,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Error reading %s</source>
-        <translation>เกิดข้อผิดพลาดในการอ่าน %s</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>โหลด %s แล้ว</translation>
     </message>
@@ -831,21 +826,6 @@ Please select a different model or use AI-Box mode.</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;ตรวจสอบว่า &lt;i&gt;%s&lt;/i&gt; เป็นไฟล์เลเบลที่ถูกต้อง&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;ตรวจสอบว่า &lt;i&gt;%s&lt;/i&gt; เป็นไฟล์รูปที่ถูกต้อง&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;ตรวจสอบว่า &lt;i&gt;{0}&lt;/i&gt; เป็นไฟล์รูปที่ถูกต้อง&lt;br/&gt;รูปแบบรูปที่รองรับ: {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Permanently delete this label file? This action cannot be undone.</source>
         <translation>ลบไฟล์เลเบลนี้อย่างถาวร? การกระทำนี้ไม่สามารถยกเลิกได้</translation>
     </message>
@@ -858,6 +838,26 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
         <translation>ซูมเข้า-ออกของรูป ใช้ทางลัด {} และ {} ที่แคนวาสได้เช่นกัน</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Allowed formats: {formats}</source>
+        <translation>รูปแบบที่อนุญาต: {formats}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected label file could not be opened: {path}</source>
+        <translation>ไม่สามารถเปิดไฟล์ป้ายกำกับที่เลือก: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected image file could not be opened: {path}</source>
+        <translation>ไม่สามารถเปิดไฟล์ภาพที่เลือก: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Failed to load: {path}</source>
+        <translation>โหลดไม่สำเร็จ: {path}</translation>
     </message>
 </context>
 </TS>

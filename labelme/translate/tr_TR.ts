@@ -636,11 +636,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Error reading %s</source>
-        <translation>%s okunurken hata oluştu</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>%s yüklendi</translation>
     </message>
@@ -834,21 +829,6 @@ Lütfen farklı bir model seçin veya AI-Box modunu kullanın.</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Lütfen &lt;i&gt;%s&lt;/i&gt; dosyasının geçerli bir etiket dosyası olduğunu kontrol edin.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Lütfen &lt;i&gt;%s&lt;/i&gt; dosyasının geçerli bir görüntü dosyası olduğunu kontrol edin.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Lütfen &lt;i&gt;{0}&lt;/i&gt; dosyasının geçerli bir görüntü dosyası olduğunu kontrol edin.&lt;br/&gt;Desteklenen görüntü biçimleri: {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Permanently delete this label file? This action cannot be undone.</source>
         <translation>Bu etiket dosyası kalıcı olarak silinsin mi? Bu işlem geri alınamaz.</translation>
     </message>
@@ -861,6 +841,26 @@ Lütfen farklı bir model seçin veya AI-Box modunu kullanın.</translation>
         <location filename="../app.py" line="0"/>
         <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
         <translation>Görüntüyü yakınlaştırın veya uzaklaştırın. {} ve {} kısayolları tuvalde de çalışır.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Allowed formats: {formats}</source>
+        <translation>İzin verilen biçimler: {formats}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected label file could not be opened: {path}</source>
+        <translation>Seçilen etiket dosyası açılamadı: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected image file could not be opened: {path}</source>
+        <translation>Seçilen görüntü dosyası açılamadı: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Failed to load: {path}</source>
+        <translation>Yükleme başarısız: {path}</translation>
     </message>
 </context>
 </TS>

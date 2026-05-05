@@ -633,11 +633,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Error reading %s</source>
-        <translation>Lỗi khi đọc %s</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>Đã tải %s</translation>
     </message>
@@ -831,21 +826,6 @@ Vui lòng chọn mô hình khác hoặc sử dụng chế độ AI-Box.</transla
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Kiểm tra rằng &lt;i&gt;%s&lt;/i&gt; là tệp nhãn hợp lệ.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Kiểm tra rằng &lt;i&gt;%s&lt;/i&gt; là tệp hình ảnh hợp lệ.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Kiểm tra rằng &lt;i&gt;{0}&lt;/i&gt; là tệp hình ảnh hợp lệ.&lt;br/&gt;Các định dạng hình ảnh được hỗ trợ: {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Permanently delete this label file? This action cannot be undone.</source>
         <translation>Xóa vĩnh viễn tệp nhãn này? Hành động này không thể hoàn tác.</translation>
     </message>
@@ -858,6 +838,26 @@ Vui lòng chọn mô hình khác hoặc sử dụng chế độ AI-Box.</transla
         <location filename="../app.py" line="0"/>
         <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
         <translation>Phóng to hoặc thu nhỏ hình ảnh. Các phím tắt {} và {} cũng hoạt động trên canvas.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Allowed formats: {formats}</source>
+        <translation>Định dạng cho phép: {formats}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected label file could not be opened: {path}</source>
+        <translation>Không thể mở tệp nhãn đã chọn: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected image file could not be opened: {path}</source>
+        <translation>Không thể mở tệp ảnh đã chọn: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Failed to load: {path}</source>
+        <translation>Không thể tải: {path}</translation>
     </message>
 </context>
 </TS>

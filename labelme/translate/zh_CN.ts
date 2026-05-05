@@ -633,11 +633,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Error reading %s</source>
-        <translation>读取 %s 时出错</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>已加载 %s</translation>
     </message>
@@ -831,21 +826,6 @@ Please select a different model or use AI-Box mode.</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;请检查 &lt;i&gt;%s&lt;/i&gt; 是否为有效的标签文件。&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;请检查 &lt;i&gt;%s&lt;/i&gt; 是否为有效的图像文件。&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;请检查 &lt;i&gt;{0}&lt;/i&gt; 是否为有效的图像文件。&lt;br/&gt;支持的图像格式：{1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Permanently delete this label file? This action cannot be undone.</source>
         <translation>永久删除该标签文件？此操作无法撤销。</translation>
     </message>
@@ -858,6 +838,26 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
         <translation>放大或缩小图像；也可在画布上使用 {} 与 {}。</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Allowed formats: {formats}</source>
+        <translation>支持的格式: {formats}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected label file could not be opened: {path}</source>
+        <translation>无法打开所选标签文件: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected image file could not be opened: {path}</source>
+        <translation>无法打开所选图像文件: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Failed to load: {path}</source>
+        <translation>加载失败：{path}</translation>
     </message>
 </context>
 </TS>

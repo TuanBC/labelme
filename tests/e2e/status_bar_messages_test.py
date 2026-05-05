@@ -106,8 +106,8 @@ def test_status_bar_shows_error_message_on_corrupt_file(
     captured = _wait_for_status_message_containing(
         qtbot=qtbot,
         win=win,
-        substring="Error",
+        substring="Failed to load",
     )
-    assert any("Error" in m and str(corrupt_json) in m for m in captured)
+    assert any("Failed to load" in m and str(corrupt_json) in m for m in captured)
 
     close_or_pause(qtbot=qtbot, widget=win, pause=pause)

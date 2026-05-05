@@ -671,11 +671,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Error reading %s</source>
-        <translation>Помилка читання %s</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>Завантажено %s</translation>
     </message>
@@ -834,21 +829,6 @@ Please select a different model or use AI-Box mode.</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Перевірте, що &lt;i&gt;%s&lt;/i&gt; є дійсним файлом мітки.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Перевірте, що &lt;i&gt;%s&lt;/i&gt; є дійсним файлом зображення.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Перевірте, що &lt;i&gt;{0}&lt;/i&gt; є дійсним файлом зображення.&lt;br/&gt;Підтримувані формати зображень: {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Permanently delete this label file? This action cannot be undone.</source>
         <translation>Остаточно видалити цей файл мітки? Цю дію неможливо скасувати.</translation>
     </message>
@@ -861,6 +841,26 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
         <translation>Збільшення або зменшення зображення. Також доступно за допомогою {} і {} на полотні.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Allowed formats: {formats}</source>
+        <translation>Дозволені формати: {formats}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected label file could not be opened: {path}</source>
+        <translation>Не вдалося відкрити вибраний файл міток: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected image file could not be opened: {path}</source>
+        <translation>Не вдалося відкрити вибраний файл зображення: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Failed to load: {path}</source>
+        <translation>Не вдалося завантажити: {path}</translation>
     </message>
 </context>
 </TS>

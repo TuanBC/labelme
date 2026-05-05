@@ -633,11 +633,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Error reading %s</source>
-        <translation>Error al leer %s</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>Cargado %s</translation>
     </message>
@@ -831,21 +826,6 @@ Seleccione un modelo diferente o use el modo AI-Box.</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Comprueba que &lt;i&gt;%s&lt;/i&gt; sea un archivo de etiqueta válido.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Comprueba que &lt;i&gt;%s&lt;/i&gt; sea un archivo de imagen válido.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Comprueba que &lt;i&gt;{0}&lt;/i&gt; sea un archivo de imagen válido.&lt;br/&gt;Formatos de imagen admitidos: {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Permanently delete this label file? This action cannot be undone.</source>
         <translation>¿Eliminar permanentemente este archivo de etiqueta? Esta acción no se puede deshacer.</translation>
     </message>
@@ -858,6 +838,26 @@ Seleccione un modelo diferente o use el modo AI-Box.</translation>
         <location filename="../app.py" line="0"/>
         <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
         <translation>Acercar o alejar la imagen. Los atajos {} y {} también funcionan sobre el lienzo.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Allowed formats: {formats}</source>
+        <translation>Formatos permitidos: {formats}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected label file could not be opened: {path}</source>
+        <translation>No se pudo abrir el archivo de etiquetas seleccionado: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>The selected image file could not be opened: {path}</source>
+        <translation>No se pudo abrir el archivo de imagen seleccionado: {path}</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Failed to load: {path}</source>
+        <translation>Error al cargar: {path}</translation>
     </message>
 </context>
 </TS>

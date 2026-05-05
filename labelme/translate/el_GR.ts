@@ -535,11 +535,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Zoom in or out of the image. Also accessible with {} and {} from the canvas.</source>
-        <translation>Μεγέθυνση ή σμίκρυνση της εικόνας. Επίσης προσβάσιμο με {} και {} από τον καμβά.</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Ctrl+Wheel</source>
         <translation>Ctrl+Wheel</translation>
     </message>
@@ -675,23 +670,8 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Βεβαιωθείτε ότι &lt;i&gt;%s&lt;/i&gt; είναι ένα έγκυρο αρχείο ετικέτας.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Error reading %s</source>
         <translation>Σφάλμα κατά την ανάγνωση %s</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Βεβαιωθείτε ότι το &lt;i&gt;%s&lt;/i&gt; είναι έγκυρο αρχείο εικόνας.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Make sure &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Βεβαιωθείτε ότι το &lt;i&gt;{0}&lt;/i&gt; είναι έγκυρο αρχείο εικόνας.&lt;br/&gt;Υποστηριζόμενες μορφές εικόνας: {1}&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -735,11 +715,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete this label file, proceed anyway?</source>
-        <translation>Πρόκειται να διαγράψετε οριστικά αυτό το αρχείο ετικετών. Θέλετε να συνεχίσετε;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Attention</source>
         <translation>Προσοχή</translation>
     </message>
@@ -768,11 +743,6 @@ To use the preferences editor, start Labelme with a config file:
         <location filename="../app.py" line="0"/>
         <source>Save annotations?</source>
         <translation>Αποθήκευση σχολιασμών;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete {} shapes, proceed anyway?</source>
-        <translation>Πρόκειται να διαγράψετε οριστικά {} σχήματα. Θέλετε να συνεχίσετε;</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -860,6 +830,36 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>&amp;Keep Previous Zoom</source>
         <translation>&amp;Διατήρηση προηγούμενου ζουμ</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Ελέγξτε ότι &lt;i&gt;%s&lt;/i&gt; είναι ένα έγκυρο αρχείο ετικέτας.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Ελέγξτε ότι το &lt;i&gt;%s&lt;/i&gt; είναι έγκυρο αρχείο εικόνας.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ελέγξτε ότι το &lt;i&gt;{0}&lt;/i&gt; είναι έγκυρο αρχείο εικόνας.&lt;br/&gt;Υποστηριζόμενες μορφές εικόνας: {1}&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete this label file? This action cannot be undone.</source>
+        <translation>Οριστική διαγραφή αυτού του αρχείου ετικετών; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete {} shapes? This action cannot be undone.</source>
+        <translation>Οριστική διαγραφή {} σχημάτων; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
+        <translation>Μεγέθυνση ή σμίκρυνση της εικόνας. Τα πλήκτρα {} και {} λειτουργούν επίσης πάνω στον καμβά.</translation>
     </message>
 </context>
 </TS>

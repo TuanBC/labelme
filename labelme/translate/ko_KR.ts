@@ -488,11 +488,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Zoom in or out of the image. Also accessible with {} and {} from the canvas.</source>
-        <translation>이미지 확대 또는 축소. 캔버스에서 {} 및 {}로도 접근 가능합니다.</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Ctrl+Wheel</source>
         <translation>Ctrl+휠</translation>
     </message>
@@ -643,11 +638,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Make sure &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;i&gt;{0}&lt;/i&gt;가 유효한 이미지 파일인지 확인하세요.&lt;br/&gt;지원되는 이미지 형식: {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>%s 로드됨</translation>
     </message>
@@ -688,11 +678,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete this label file, proceed anyway?</source>
-        <translation>이 레이블 파일을 영구적으로 삭제하시겠습니까?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Attention</source>
         <translation>주의</translation>
     </message>
@@ -705,11 +690,6 @@ Shapes</source>
         <location filename="../app.py" line="0"/>
         <source>Save annotations?</source>
         <translation>주석을 저장하시겠습니까?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete {} shapes, proceed anyway?</source>
-        <translation>{}개의 도형을 영구적으로 삭제하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -761,16 +741,6 @@ To use the preferences editor, start Labelme with a config file:
         <location filename="../app.py" line="0"/>
         <source>Errors were found while loading the configuration. Please review the errors below and reload your configuration or ignore the erroneous lines.</source>
         <translation>구성을 불러오는 중 오류가 발견되었습니다. 아래 오류를 검토하고 구성을 다시 불러오거나 잘못된 줄을 무시하세요.</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;%s&lt;/i&gt;가 유효한 레이블 파일인지 확인하세요.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;%s&lt;/i&gt;가 유효한 이미지 파일인지 확인하세요.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -858,6 +828,36 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>&amp;Keep Previous Zoom</source>
         <translation>이전 줌 유지(&amp;K)</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;%s&lt;/i&gt;가 유효한 레이블 파일인지 확인하세요.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;%s&lt;/i&gt;가 유효한 이미지 파일인지 확인하세요.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;i&gt;{0}&lt;/i&gt;가 유효한 이미지 파일인지 확인하세요.&lt;br/&gt;지원되는 이미지 형식: {1}&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete this label file? This action cannot be undone.</source>
+        <translation>이 레이블 파일을 영구적으로 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete {} shapes? This action cannot be undone.</source>
+        <translation>{}개의 도형을 영구적으로 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
+        <translation>이미지 확대 또는 축소. 캔버스에서 {} 및 {}로도 사용 가능합니다.</translation>
     </message>
 </context>
 </TS>

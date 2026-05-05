@@ -494,11 +494,6 @@ forme</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Zoom in or out of the image. Also accessible with {} and {} from the canvas.</source>
-        <translation>Ingrandisci o riduci l'immagine. Accessibile anche con {} e {} dalla tela.</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Ctrl+Wheel</source>
         <translation>Ctrl+Rotella</translation>
     </message>
@@ -649,11 +644,6 @@ forme</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Make sure &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Assicurati che &lt;i&gt;{0}&lt;/i&gt; sia un file immagine valido.&lt;br/&gt;Formati immagine supportati : {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>%s caricato</translation>
     </message>
@@ -694,11 +684,6 @@ forme</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete this label file, proceed anyway?</source>
-        <translation>Stai per eliminare definitivamente questo file di etichette, procedere comunque?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Attention</source>
         <translation>Attenzione</translation>
     </message>
@@ -711,11 +696,6 @@ forme</translation>
         <location filename="../app.py" line="0"/>
         <source>Save annotations?</source>
         <translation>Salvare le annotazioni?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete {} shapes, proceed anyway?</source>
-        <translation>Stai per eliminare definitivamente {} forme, procedere comunque?</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -767,16 +747,6 @@ Per utilizzare l'editor delle preferenze, avvia Labelme con un file di configura
         <location filename="../app.py" line="0"/>
         <source>Errors were found while loading the configuration. Please review the errors below and reload your configuration or ignore the erroneous lines.</source>
         <translation>Sono stati trovati errori durante il caricamento della configurazione. Si prega di esaminare gli errori sottostanti e ricaricare la configurazione o ignorare le righe errate.</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Assicurati che &lt;i&gt;%s&lt;/i&gt; sia un file di etichette valido.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Assicurati che &lt;i&gt;%s&lt;/i&gt; sia un file di immagine valido.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -864,6 +834,36 @@ Selezionare un modello diverso o utilizzare la modalità AI-Box.</translation>
         <location filename="../app.py" line="0"/>
         <source>&amp;Keep Previous Zoom</source>
         <translation>&amp;Mantieni zoom precedente</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Verifica che &lt;i&gt;%s&lt;/i&gt; sia un file di etichette valido.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Verifica che &lt;i&gt;%s&lt;/i&gt; sia un file di immagine valido.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Verifica che &lt;i&gt;{0}&lt;/i&gt; sia un file immagine valido.&lt;br/&gt;Formati immagine supportati: {1}&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete this label file? This action cannot be undone.</source>
+        <translation>Eliminare definitivamente questo file di etichette? Questa azione non può essere annullata.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete {} shapes? This action cannot be undone.</source>
+        <translation>Eliminare definitivamente {} forme? Questa azione non può essere annullata.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
+        <translation>Ingrandisci o riduci l'immagine. I tasti di scelta rapida {} e {} funzionano anche sulla tela.</translation>
     </message>
 </context>
 </TS>

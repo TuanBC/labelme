@@ -488,11 +488,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Zoom in or out of the image. Also accessible with {} and {} from the canvas.</source>
-        <translation>Phóng to hoặc thu nhỏ hình ảnh. Cũng có thể truy cập bằng {} và {} từ canvas.</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Ctrl+Wheel</source>
         <translation>Ctrl+Bánh xe</translation>
     </message>
@@ -643,11 +638,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Make sure &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Đảm bảo &lt;i&gt;{0}&lt;/i&gt; là tệp hình ảnh hợp lệ.&lt;br/&gt;Các định dạng hình ảnh được hỗ trợ: {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>Đã tải %s</translation>
     </message>
@@ -688,11 +678,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete this label file, proceed anyway?</source>
-        <translation>Bạn sắp xóa vĩnh viễn tệp nhãn này, có tiếp tục không?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Attention</source>
         <translation>Chú ý</translation>
     </message>
@@ -705,11 +690,6 @@ Shapes</source>
         <location filename="../app.py" line="0"/>
         <source>Save annotations?</source>
         <translation>Lưu chú thích?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete {} shapes, proceed anyway?</source>
-        <translation>Bạn sắp xóa vĩnh viễn {} hình dạng, có tiếp tục không?</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -761,16 +741,6 @@ To use the preferences editor, start Labelme with a config file:
 
 Để sử dụng trình chỉnh sửa tùy chọn, khởi động Labelme với tệp cấu hình:
   labelme --config ~/.labelmerc</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Đảm bảo &lt;i&gt;%s&lt;/i&gt; là tệp nhãn hợp lệ.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Đảm bảo &lt;i&gt;%s&lt;/i&gt; là tệp hình ảnh hợp lệ.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -858,6 +828,36 @@ Vui lòng chọn mô hình khác hoặc sử dụng chế độ AI-Box.</transla
         <location filename="../app.py" line="0"/>
         <source>&amp;Keep Previous Zoom</source>
         <translation>Giữ &amp;Mức Phóng to Trước đó</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Kiểm tra rằng &lt;i&gt;%s&lt;/i&gt; là tệp nhãn hợp lệ.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Kiểm tra rằng &lt;i&gt;%s&lt;/i&gt; là tệp hình ảnh hợp lệ.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Kiểm tra rằng &lt;i&gt;{0}&lt;/i&gt; là tệp hình ảnh hợp lệ.&lt;br/&gt;Các định dạng hình ảnh được hỗ trợ: {1}&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete this label file? This action cannot be undone.</source>
+        <translation>Xóa vĩnh viễn tệp nhãn này? Hành động này không thể hoàn tác.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete {} shapes? This action cannot be undone.</source>
+        <translation>Xóa vĩnh viễn {} hình dạng? Hành động này không thể hoàn tác.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
+        <translation>Phóng to hoặc thu nhỏ hình ảnh. Các phím tắt {} và {} cũng hoạt động trên canvas.</translation>
     </message>
 </context>
 </TS>

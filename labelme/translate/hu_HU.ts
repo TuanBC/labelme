@@ -499,11 +499,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Zoom in or out of the image. Also accessible with {} and {} from the canvas.</source>
-        <translation>Kép nagyítása vagy kicsinyítése. A vászonról {} és {} billentyűkkel is elérhető.</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Ctrl+Wheel</source>
         <translation>Ctrl+Görgő</translation>
     </message>
@@ -659,11 +654,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Make sure &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Győződjön meg arról, hogy &lt;i&gt;{0}&lt;/i&gt; érvényes kép fájl.&lt;br/&gt;Támogatott kép formátumok: {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>%s betöltve</translation>
     </message>
@@ -704,11 +694,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete this label file, proceed anyway?</source>
-        <translation>Biztosan véglegesen törli ezt a címke fájlt?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Attention</source>
         <translation>Figyelem</translation>
     </message>
@@ -721,11 +706,6 @@ Shapes</source>
         <location filename="../app.py" line="0"/>
         <source>Save annotations?</source>
         <translation>Mentse az annotációkat?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete {} shapes, proceed anyway?</source>
-        <translation>Biztosan véglegesen törli a {} alakzatot?</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -767,16 +747,6 @@ A beállítások szerkesztő használatához indítsa el a Labelme-t konfigurác
         <location filename="../app.py" line="0"/>
         <source>Errors were found while loading the configuration. Please review the errors below and reload your configuration or ignore the erroneous lines.</source>
         <translation>Hibák találhatók a konfiguráció betöltése közben. Kérjük, tekintse át az alábbi hibákat, és töltse újra a konfigurációt, vagy hagyja figyelmen kívül a hibás sorokat.</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Győződjön meg arról, hogy &lt;i&gt;%s&lt;/i&gt; érvényes címke fájl.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Győződjön meg arról, hogy &lt;i&gt;%s&lt;/i&gt; érvényes képfájl.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -864,6 +834,36 @@ Kérjük, válasszon másik modellt vagy használja az AI-Box módot.</translati
         <location filename="../app.py" line="0"/>
         <source>&amp;Keep Previous Zoom</source>
         <translation>&amp;Előző nagyítás megtartása</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Ellenőrizze, hogy &lt;i&gt;%s&lt;/i&gt; érvényes címke fájl.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Ellenőrizze, hogy &lt;i&gt;%s&lt;/i&gt; érvényes képfájl.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ellenőrizze, hogy &lt;i&gt;{0}&lt;/i&gt; érvényes kép fájl.&lt;br/&gt;Támogatott kép formátumok: {1}&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete this label file? This action cannot be undone.</source>
+        <translation>Véglegesen törli ezt a címke fájlt? Ez a művelet nem vonható vissza.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete {} shapes? This action cannot be undone.</source>
+        <translation>Véglegesen törli a {} alakzatot? Ez a művelet nem vonható vissza.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
+        <translation>Kép nagyítása vagy kicsinyítése. A {} és {} billentyűparancsok a vásznon is működnek.</translation>
     </message>
 </context>
 </TS>

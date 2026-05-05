@@ -28,7 +28,7 @@ def shape_to_mask(
         assert len(xy) == 2, "Shape of shape_type=circle must have 2 points"
         (cx, cy), (px, py) = xy
         d = math.sqrt((cx - px) ** 2 + (cy - py) ** 2)
-        draw.ellipse([cx - d, cy - d, cx + d, cy + d], outline=1, fill=1)
+        draw.ellipse(((cx - d, cy - d), (cx + d, cy + d)), outline=1, fill=1)
     elif shape_type == "rectangle":
         assert len(xy) == 2, "Shape of shape_type=rectangle must have 2 points"
         (x0, y0), (x1, y1) = xy
@@ -46,7 +46,7 @@ def shape_to_mask(
         assert len(xy) == 1, "Shape of shape_type=point must have 1 points"
         cx, cy = xy[0]
         r = point_size
-        draw.ellipse([cx - r, cy - r, cx + r, cy + r], outline=1, fill=1)
+        draw.ellipse(((cx - r, cy - r), (cx + r, cy + r)), outline=1, fill=1)
     elif shape_type in [None, "polygon"]:
         assert len(xy) > 2, "Polygon must have points more than 2"
         draw.polygon(xy=xy, outline=1, fill=1)  # ty: ignore[invalid-argument-type]
@@ -69,7 +69,7 @@ def shapes_to_label(
         group_id = shape.get("group_id")
         if group_id is None:
             group_id = uuid.uuid1()
-        shape_type = shape.get("shape_type", None)
+        shape_type = shape.get("shape_type")
 
         cls_name = label
         instance = (cls_name, group_id)

@@ -669,8 +669,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self._canvas_widgets.zoom_widget.setWhatsThis(
             str(
                 self.tr(
-                    "Zoom in or out of the image. Also accessible with "
-                    "{} and {} from the canvas."
+                    "Zoom the image in or out. The shortcuts "
+                    "{} and {} also work on the canvas."
                 )
             ).format(
                 utils.format_shortcut(
@@ -1924,7 +1924,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.show_error_message(
                 self.tr("Error opening file"),
                 self.tr(
-                    "<p><b>%s</b></p><p>Make sure <i>%s</i> is a valid label file.</p>"
+                    "<p><b>%s</b></p><p>Check that <i>%s</i> is a valid label file.</p>"
                 )
                 % (e, label_path),
             )
@@ -1943,7 +1943,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.show_error_message(
                 self.tr("Error opening file"),
                 self.tr(
-                    "<p><b>%s</b></p><p>Make sure <i>%s</i> is a valid image file.</p>"
+                    "<p><b>%s</b></p><p>Check that <i>%s</i> is a valid image file.</p>"
                 )
                 % (e, image_path),
             )
@@ -2013,7 +2013,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.show_error_message(
                 self.tr("Error opening file"),
                 self.tr(
-                    "<p>Make sure <i>{0}</i> is a valid image file.<br/>"
+                    "<p>Check that <i>{0}</i> is a valid image file.<br/>"
                     "Supported image formats: {1}</p>"
                 ).format(image_or_label_path, ",".join(formats)),
             )
@@ -2278,7 +2278,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def delete_file(self) -> None:
         msg = self.tr(
-            "You are about to permanently delete this label file, proceed anyway?"
+            "Permanently delete this label file? This action cannot be undone."
         )
         answer = QtWidgets.QMessageBox.warning(
             self,
@@ -2389,7 +2389,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def delete_selected_shapes(self) -> None:
         yes, no = QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No
         msg = self.tr(
-            "You are about to permanently delete {} shapes, proceed anyway?"
+            "Permanently delete {} shapes? This action cannot be undone."
         ).format(len(self._canvas_widgets.canvas.selected_shapes))
         if yes == QtWidgets.QMessageBox.warning(
             self, self.tr("Attention"), msg, yes | no, yes

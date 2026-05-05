@@ -491,11 +491,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Zoom in or out of the image. Also accessible with {} and {} from the canvas.</source>
-        <translation>Görüntüyü yakınlaştırın veya uzaklaştırın. Tuvalde {} ve {} ile de erişilebilir.</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Ctrl+Wheel</source>
         <translation>Ctrl+Tekerlek</translation>
     </message>
@@ -646,11 +641,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Make sure &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Lütfen &lt;i&gt;{0}&lt;/i&gt; dosyasının geçerli bir görüntü dosyası olduğundan emin olun.&lt;br/&gt;Desteklenen görüntü biçimleri: {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>%s yüklendi</translation>
     </message>
@@ -691,11 +681,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete this label file, proceed anyway?</source>
-        <translation>Bu etiket dosyasını kalıcı olarak silmek üzeresiniz, yine de devam etmek istiyor musunuz?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Attention</source>
         <translation>Dikkat</translation>
     </message>
@@ -708,11 +693,6 @@ Shapes</source>
         <location filename="../app.py" line="0"/>
         <source>Save annotations?</source>
         <translation>Açıklamalar kaydedilsin mi?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete {} shapes, proceed anyway?</source>
-        <translation>{} şekli kalıcı olarak silmek üzeresiniz, yine de devam etmek istiyor musunuz?</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -764,16 +744,6 @@ Tercihler düzenleyicisini kullanmak için Labelme'i bir yapılandırma dosyası
         <location filename="../app.py" line="0"/>
         <source>Errors were found while loading the configuration. Please review the errors below and reload your configuration or ignore the erroneous lines.</source>
         <translation>Yapılandırma yüklenirken hatalar bulundu. Lütfen aşağıdaki hataları gözden geçirip yapılandırmayı yeniden yükleyin veya hatalı satırları yok sayın.</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Lütfen &lt;i&gt;%s&lt;/i&gt; dosyasının geçerli bir etiket dosyası olduğundan emin olun.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Lütfen &lt;i&gt;%s&lt;/i&gt; dosyasının geçerli bir görüntü dosyası olduğundan emin olun.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -861,6 +831,36 @@ Lütfen farklı bir model seçin veya AI-Box modunu kullanın.</translation>
         <location filename="../app.py" line="0"/>
         <source>&amp;Keep Previous Zoom</source>
         <translation>Önceki &amp;Yakınlaştırmayı Koru</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Lütfen &lt;i&gt;%s&lt;/i&gt; dosyasının geçerli bir etiket dosyası olduğunu kontrol edin.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Lütfen &lt;i&gt;%s&lt;/i&gt; dosyasının geçerli bir görüntü dosyası olduğunu kontrol edin.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Lütfen &lt;i&gt;{0}&lt;/i&gt; dosyasının geçerli bir görüntü dosyası olduğunu kontrol edin.&lt;br/&gt;Desteklenen görüntü biçimleri: {1}&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete this label file? This action cannot be undone.</source>
+        <translation>Bu etiket dosyası kalıcı olarak silinsin mi? Bu işlem geri alınamaz.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete {} shapes? This action cannot be undone.</source>
+        <translation>{} şekil kalıcı olarak silinsin mi? Bu işlem geri alınamaz.</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
+        <translation>Görüntüyü yakınlaştırın veya uzaklaştırın. {} ve {} kısayolları tuvalde de çalışır.</translation>
     </message>
 </context>
 </TS>

@@ -488,11 +488,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>Zoom in or out of the image. Also accessible with {} and {} from the canvas.</source>
-        <translation>ซูมเข้า-ออกของรูป ใช้ {} และ {} ที่แคนวาสได้เช่นกัน</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Ctrl+Wheel</source>
         <translation>Ctrl+ล้อเลื่อน</translation>
     </message>
@@ -643,11 +638,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;Make sure &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
-        <translation>&lt;p&gt;ตรวจสอบว่า &lt;i&gt;{0}&lt;/i&gt; เป็นไฟล์รูปที่ถูกต้อง&lt;br/&gt;รูปแบบรูปที่รองรับ: {1}&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Loaded %s</source>
         <translation>โหลด %s แล้ว</translation>
     </message>
@@ -688,11 +678,6 @@ Shapes</source>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete this label file, proceed anyway?</source>
-        <translation>คุณกำลังจะลบไฟล์เลเบลนี้อย่างถาวร ต้องการดำเนินการต่อหรือไม่?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
         <source>Attention</source>
         <translation>คำเตือน</translation>
     </message>
@@ -705,11 +690,6 @@ Shapes</source>
         <location filename="../app.py" line="0"/>
         <source>Save annotations?</source>
         <translation>บันทึกแอนโนเทชันหรือไม่?</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>You are about to permanently delete {} shapes, proceed anyway?</source>
-        <translation>คุณกำลังจะลบรูปร่าง {} รายการอย่างถาวร ต้องการดำเนินการต่อหรือไม่?</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -761,16 +741,6 @@ To use the preferences editor, start Labelme with a config file:
         <location filename="../app.py" line="0"/>
         <source>Errors were found while loading the configuration. Please review the errors below and reload your configuration or ignore the erroneous lines.</source>
         <translation>พบข้อผิดพลาดขณะโหลดการตั้งค่า กรุณาตรวจสอบด้านล่าง แล้วโหลดการตั้งค่าใหม่หรือข้ามบรรทัดที่มีข้อผิดพลาด</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;ตรวจสอบว่า &lt;i&gt;%s&lt;/i&gt; เป็นไฟล์เลเบลที่ถูกต้อง&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../app.py" line="0"/>
-        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Make sure &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;ตรวจสอบว่า &lt;i&gt;%s&lt;/i&gt; เป็นไฟล์รูปที่ถูกต้อง&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../app.py" line="0"/>
@@ -858,6 +828,36 @@ Please select a different model or use AI-Box mode.</source>
         <location filename="../app.py" line="0"/>
         <source>&amp;Keep Previous Zoom</source>
         <translation>คงระดับซูมก่อนหน้า (&amp;K)</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid label file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;ตรวจสอบว่า &lt;i&gt;%s&lt;/i&gt; เป็นไฟล์เลเบลที่ถูกต้อง&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Check that &lt;i&gt;%s&lt;/i&gt; is a valid image file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/p&gt;&lt;p&gt;ตรวจสอบว่า &lt;i&gt;%s&lt;/i&gt; เป็นไฟล์รูปที่ถูกต้อง&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>&lt;p&gt;Check that &lt;i&gt;{0}&lt;/i&gt; is a valid image file.&lt;br/&gt;Supported image formats: {1}&lt;/p&gt;</source>
+        <translation>&lt;p&gt;ตรวจสอบว่า &lt;i&gt;{0}&lt;/i&gt; เป็นไฟล์รูปที่ถูกต้อง&lt;br/&gt;รูปแบบรูปที่รองรับ: {1}&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete this label file? This action cannot be undone.</source>
+        <translation>ลบไฟล์เลเบลนี้อย่างถาวร? การกระทำนี้ไม่สามารถยกเลิกได้</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Permanently delete {} shapes? This action cannot be undone.</source>
+        <translation>ลบรูปร่าง {} รายการอย่างถาวร? การกระทำนี้ไม่สามารถยกเลิกได้</translation>
+    </message>
+    <message>
+        <location filename="../app.py" line="0"/>
+        <source>Zoom the image in or out. The shortcuts {} and {} also work on the canvas.</source>
+        <translation>ซูมเข้า-ออกของรูป ใช้ทางลัด {} และ {} ที่แคนวาสได้เช่นกัน</translation>
     </message>
 </context>
 </TS>

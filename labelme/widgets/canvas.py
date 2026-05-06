@@ -20,8 +20,9 @@ from PyQt5.QtCore import QRectF
 from PyQt5.QtCore import Qt
 
 import labelme.utils
+from labelme._automation import Detection
 from labelme._automation import OsamSession
-from labelme._automation import polygon_from_mask
+from labelme._automation import shapes_from_detections
 from labelme.shape import POLYLINE_SHAPE_TYPES
 from labelme.shape import Shape
 
@@ -189,9 +190,9 @@ class Canvas(QtWidgets.QWidget):
             points=np.array([[p.x(), p.y()] for p in points]),
             point_labels=np.array(point_labels),
         )
-        return _shapes_from_ai_response(
-            response=response,
-            output_format=self._ai_output_format,
+        return shapes_from_detections(
+            detections=_detections_from_annotations(response.annotations),
+            shape_type=self._ai_output_format,
         )
 
     def _shapes_from_bbox_ai(self, bbox_points: list[QPointF]) -> list[Shape]:
@@ -204,9 +205,9 @@ class Canvas(QtWidgets.QWidget):
             # point_labels: 2=box corner, 3=opposite box corner (SAM convention)
             point_labels=np.array([2, 3]),
         )
-        return _shapes_from_ai_response(
-            response=response,
-            output_format=self._ai_output_format,
+        return shapes_from_detections(
+            detections=_detections_from_annotations(response.annotations),
+            shape_type=self._ai_output_format,
         )
 
     def backup_shapes(self) -> None:
@@ -1306,7 +1307,6 @@ class Canvas(QtWidgets.QWidget):
             return
         self.current = self.shapes.pop()
         self.current.open()
-        self.current.unrefine()
         if self.create_mode in POLYLINE_SHAPE_TYPES:
             self.line.points = [self.current[-1], self.current[0]]
         elif self.create_mode in ("rectangle", "line", "circle", "ai_box_to_shape"):
@@ -1387,73 +1387,25 @@ class Canvas(QtWidgets.QWidget):
         self.update()
 
 
-def _shape_from_annotation(
-    annotation: osam.types.Annotation,
-    output_format: Literal["polygon", "mask"],
-) -> Shape | None:
-    if annotation.mask is None:
-        return None
-
-    mask: np.ndarray = annotation.mask
-
-    if output_format == "mask":
-        if annotation.bounding_box is None:
-            return None
-        bb = annotation.bounding_box
-        shape = Shape()
-        shape.refine(
-            shape_type="mask",
-            points=[QPointF(bb.xmin, bb.ymin), QPointF(bb.xmax, bb.ymax)],
-            point_labels=[1, 1],
-            mask=mask,
-        )
-        shape.close()
-        return shape
-    elif output_format == "polygon":
-        points = polygon_from_mask.compute_polygon_from_mask(mask=mask)
-        if len(points) < 2:
-            return None
-        if annotation.bounding_box is not None:
-            bb = annotation.bounding_box
-            points = points + np.array([bb.xmin, bb.ymin], dtype=np.float32)
-        shape = Shape()
-        shape.refine(
-            shape_type="polygon",
-            points=[QPointF(point[0], point[1]) for point in points],
-            point_labels=[1] * len(points),
-        )
-        shape.close()
-        return shape
-    raise ValueError(f"Unsupported output_format: {output_format!r}")
-
-
-def _shapes_from_ai_response(
-    response: osam.types.GenerateResponse,
-    output_format: Literal["polygon", "mask"],
-) -> list[Shape]:
-    if output_format not in ["polygon", "mask"]:
-        raise ValueError(
-            f"output_format must be 'polygon' or 'mask', not {output_format}"
-        )
-
-    if not response.annotations:
+def _detections_from_annotations(
+    annotations: list[osam.types.Annotation],
+) -> list[Detection]:
+    if not annotations:
         logger.warning("No annotations returned")
         return []
-
-    annotations = sorted(
-        response.annotations,
+    sorted_annotations = sorted(
+        annotations,
         key=lambda a: a.score if a.score is not None else 0,
         reverse=True,
     )
-
-    shapes: list[Shape] = []
-    for annotation in annotations:
-        shape = _shape_from_annotation(
-            annotation=annotation, output_format=output_format
-        )
-        if shape is not None:
-            shapes.append(shape)
-    return shapes
+    detections: list[Detection] = []
+    for annotation in sorted_annotations:
+        bbox: tuple[float, float, float, float] | None = None
+        if annotation.bounding_box is not None:
+            bb = annotation.bounding_box
+            bbox = (bb.xmin, bb.ymin, bb.xmax, bb.ymax)
+        detections.append(Detection(bbox=bbox, mask=annotation.mask))
+    return detections
 
 
 def _normalize_bbox_points(bbox_points: list[QPointF]) -> list[QPointF]:

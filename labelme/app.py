@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import enum
 import functools
+import json
 import math
 import os
 import platform
@@ -33,8 +34,11 @@ from PyQt5.QtWidgets import QMessageBox
 
 from labelme import __appname__
 from labelme import __version__
-from labelme._automation import bbox_from_text
-from labelme._automation._osam_session import OsamSession
+from labelme._automation import Detection
+from labelme._automation import OsamSession
+from labelme._automation import get_bboxes_from_texts
+from labelme._automation import nms_bboxes
+from labelme._automation import shapes_from_detections
 from labelme._label_file import LABEL_FILE_SUFFIX
 from labelme._label_file import LabelData
 from labelme._label_file import LabelFileError
@@ -1270,7 +1274,7 @@ class MainWindow(QtWidgets.QMainWindow):
         ):
             self._text_osam_session = OsamSession(model_name=model_name)
 
-        boxes, scores, labels, masks = bbox_from_text.get_bboxes_from_texts(
+        boxes, scores, labels, masks = get_bboxes_from_texts(
             session=self._text_osam_session,
             image=utils.img_qt_to_arr(self._image)[:, :, :3],
             image_id=str(hash(self._image_path)),
@@ -1285,7 +1289,7 @@ class MainWindow(QtWidgets.QMainWindow):
             scores = np.r_[scores, [SCORE_FOR_EXISTING_SHAPE]]
             labels = np.r_[labels, [texts.index(shape.label)]]
 
-        boxes, scores, labels, indices = bbox_from_text.nms_bboxes(
+        boxes, scores, labels, indices = nms_bboxes(
             boxes=boxes,
             scores=scores,
             labels=labels,
@@ -1300,17 +1304,30 @@ class MainWindow(QtWidgets.QMainWindow):
         labels = labels[is_new]
         indices = indices[is_new]
 
-        if masks is not None:
+        if masks is None:
+            masks = [None] * len(boxes)
+        else:
             masks = [masks[i] for i in indices]
         del indices
 
-        shapes: list[Shape] = bbox_from_text.get_shapes_from_bboxes(
-            boxes=boxes,
-            scores=scores,
-            labels=labels,
-            texts=texts,
-            masks=masks,
-            shape_type=shape_type,
+        detections: list[Detection] = []
+        for box, score, label, mask in zip(boxes, scores, labels, masks):
+            text: str = texts[label]
+            detections.append(
+                Detection(
+                    bbox=(
+                        float(box[0]),
+                        float(box[1]),
+                        float(box[2]),
+                        float(box[3]),
+                    ),
+                    mask=mask,
+                    label=text,
+                    description=json.dumps(dict(score=score.item(), text=text)),
+                )
+            )
+        shapes: list[Shape] = shapes_from_detections(
+            detections=detections, shape_type=shape_type
         )
 
         self._canvas_widgets.canvas.backup_shapes()

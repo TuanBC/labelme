@@ -3,3 +3,4 @@ from ._shape_builders import Detection
 from ._shape_builders import shapes_from_detections
 from ._text_detection import get_bboxes_from_texts
 from ._text_detection import nms_bboxes
+from ._types import AiOutputFormat

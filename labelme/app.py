@@ -34,6 +34,7 @@ from PyQt5.QtWidgets import QMessageBox
 
 from labelme import __appname__
 from labelme import __version__
+from labelme._automation import AiOutputFormat
 from labelme._automation import Detection
 from labelme._automation import OsamSession
 from labelme._automation import get_bboxes_from_texts
@@ -2593,8 +2594,8 @@ def _shapes_from_dicts(
 
 
 def _resolve_text_annotation_shape_type(
-    *, create_mode: str, ai_output_format: Literal["rectangle", "polygon", "mask"]
-) -> Literal["rectangle", "polygon", "mask"] | None:
+    *, create_mode: str, ai_output_format: AiOutputFormat
+) -> AiOutputFormat | None:
     if create_mode in _AI_CREATE_MODES:
         return ai_output_format
     if create_mode in get_args(_TextToAnnotationCreateMode):
@@ -2603,10 +2604,24 @@ def _resolve_text_annotation_shape_type(
 
 
 def _shape_to_xyxy_bbox(shape: Shape) -> NDArray[np.float32]:
-    points = np.array([[p.x(), p.y()] for p in shape.points])
-    xmin, ymin = points.min(axis=0)
-    xmax, ymax = points.max(axis=0)
-    return np.array([xmin, ymin, xmax, ymax], dtype=np.float32)
+    if shape.shape_type == "circle":
+        center, edge = shape.points
+        radius = math.sqrt((edge.x() - center.x()) ** 2 + (edge.y() - center.y()) ** 2)
+        return np.array(
+            [
+                center.x() - radius,
+                center.y() - radius,
+                center.x() + radius,
+                center.y() + radius,
+            ],
+            dtype=np.float32,
+        )
+    if shape.shape_type in ("rectangle", "polygon", "mask"):
+        points = np.array([[p.x(), p.y()] for p in shape.points])
+        xmin, ymin = points.min(axis=0)
+        xmax, ymax = points.max(axis=0)
+        return np.array([xmin, ymin, xmax, ymax], dtype=np.float32)
+    raise ValueError(f"Unsupported shape_type: {shape.shape_type!r}")
 
 
 def _rgb_from_colormap_id(*, label_id: int) -> tuple[int, int, int]:

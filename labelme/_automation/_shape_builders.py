@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal
 
 import numpy as np
 from numpy.typing import NDArray
@@ -9,7 +8,10 @@ from PyQt5.QtCore import QPointF
 
 from labelme.shape import Shape
 
+from ._geometry import Circle
+from ._geometry import compute_circle_from_mask
 from ._geometry import compute_polygon_from_mask
+from ._types import AiOutputFormat
 
 
 @dataclass
@@ -21,7 +23,7 @@ class Detection:
 
 
 def _build_shape(
-    shape_type: Literal["rectangle", "polygon", "mask"],
+    shape_type: AiOutputFormat,
     points: list[QPointF],
     *,
     mask: NDArray[np.bool_] | None = None,
@@ -42,7 +44,7 @@ def _build_shape(
 
 def _shape_from_detection(
     detection: Detection,
-    shape_type: Literal["rectangle", "polygon", "mask"],
+    shape_type: AiOutputFormat,
 ) -> Shape | None:
     if shape_type == "rectangle":
         if detection.bbox is None:
@@ -84,12 +86,45 @@ def _shape_from_detection(
             label=detection.label,
             description=detection.description,
         )
+    if shape_type == "circle":
+        circle = _circle_for_detection(detection=detection)
+        if circle is None:
+            return None
+        return _build_shape(
+            shape_type="circle",
+            points=[
+                QPointF(circle.cx, circle.cy),
+                QPointF(circle.cx + circle.radius, circle.cy),
+            ],
+            label=detection.label,
+            description=detection.description,
+        )
     raise ValueError(f"Unsupported shape_type: {shape_type!r}")
+
+
+def _circle_for_detection(detection: Detection) -> Circle | None:
+    if detection.mask is not None:
+        circle = compute_circle_from_mask(mask=detection.mask)
+        if circle is not None:
+            offset_x = detection.bbox[0] if detection.bbox is not None else 0.0
+            offset_y = detection.bbox[1] if detection.bbox is not None else 0.0
+            return Circle(
+                cx=circle.cx + offset_x,
+                cy=circle.cy + offset_y,
+                radius=circle.radius,
+            )
+    if detection.bbox is not None:
+        # Inscribed in bbox when no usable mask is available.
+        xmin, ymin, xmax, ymax = detection.bbox
+        radius = min(xmax - xmin, ymax - ymin) / 2
+        if radius > 0:
+            return Circle(cx=(xmin + xmax) / 2, cy=(ymin + ymax) / 2, radius=radius)
+    return None
 
 
 def shapes_from_detections(
     detections: list[Detection],
-    shape_type: Literal["rectangle", "polygon", "mask"],
+    shape_type: AiOutputFormat,
 ) -> list[Shape]:
     shapes: list[Shape] = []
     for detection in detections:

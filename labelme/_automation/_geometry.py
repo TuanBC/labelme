@@ -1,8 +1,32 @@
+from __future__ import annotations
+
+from typing import NamedTuple
+
 import imgviz
 import numpy as np
 import skimage
 from loguru import logger
 from numpy.typing import NDArray
+
+
+class Circle(NamedTuple):
+    cx: float
+    cy: float
+    radius: float
+
+
+def compute_circle_from_mask(mask: NDArray[np.bool_]) -> Circle | None:
+    if not mask.any():
+        return None
+    ys, xs = np.nonzero(mask)
+    # Area-equivalent radius: matches the mask's pixel area, not its extent.
+    # For elongated or sparse masks the resulting circle may be smaller than
+    # the tightest enclosing one.
+    return Circle(
+        cx=float(xs.mean()),
+        cy=float(ys.mean()),
+        radius=float(np.sqrt(mask.sum() / np.pi)),
+    )
 
 
 def _get_contour_length(contour: NDArray[np.float32]) -> float:

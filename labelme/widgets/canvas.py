@@ -5,7 +5,6 @@ import enum
 from collections.abc import Callable
 from typing import Any
 from typing import Final
-from typing import Literal
 
 import imgviz
 import numpy as np
@@ -20,6 +19,7 @@ from PyQt5.QtCore import QRectF
 from PyQt5.QtCore import Qt
 
 import labelme.utils
+from labelme._automation import AiOutputFormat
 from labelme._automation import Detection
 from labelme._automation import OsamSession
 from labelme._automation import shapes_from_detections
@@ -86,7 +86,7 @@ class Canvas(QtWidgets.QWidget):
 
     _osam_session_model_name: str = "sam2:latest"
     _osam_session: OsamSession | None
-    _ai_output_format: Literal["polygon", "mask"] = "polygon"
+    _ai_output_format: AiOutputFormat = "polygon"
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:  # noqa: ANN401
         self.epsilon: float = kwargs.pop("epsilon", 10.0)
@@ -169,7 +169,7 @@ class Canvas(QtWidgets.QWidget):
     def set_ai_model_name(self, model_name: str) -> None:
         self._osam_session_model_name = model_name
 
-    def set_ai_output_format(self, output_format: Literal["polygon", "mask"]) -> None:
+    def set_ai_output_format(self, output_format: AiOutputFormat) -> None:
         self._ai_output_format = output_format
 
     def _get_osam_session(self) -> OsamSession:

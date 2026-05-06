@@ -21,7 +21,7 @@ from PyQt5.QtCore import Qt
 
 import labelme.utils
 from labelme._automation import OsamSession
-from labelme._automation import shapes_from_ai_response
+from labelme._automation import shapes_from_annotations
 from labelme.shape import POLYLINE_SHAPE_TYPES
 from labelme.shape import Shape
 
@@ -189,8 +189,8 @@ class Canvas(QtWidgets.QWidget):
             points=np.array([[p.x(), p.y()] for p in points]),
             point_labels=np.array(point_labels),
         )
-        return shapes_from_ai_response(
-            response=response,
+        return shapes_from_annotations(
+            annotations=response.annotations,
             output_format=self._ai_output_format,
         )
 
@@ -204,8 +204,8 @@ class Canvas(QtWidgets.QWidget):
             # point_labels: 2=box corner, 3=opposite box corner (SAM convention)
             point_labels=np.array([2, 3]),
         )
-        return shapes_from_ai_response(
-            response=response,
+        return shapes_from_annotations(
+            annotations=response.annotations,
             output_format=self._ai_output_format,
         )
 

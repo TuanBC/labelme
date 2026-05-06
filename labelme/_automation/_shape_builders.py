@@ -54,27 +54,22 @@ def shape_from_annotation(
     raise ValueError(f"Unsupported output_format: {output_format!r}")
 
 
-def shapes_from_ai_response(
-    response: osam.types.GenerateResponse,
+def shapes_from_annotations(
+    annotations: list[osam.types.Annotation],
     output_format: Literal["polygon", "mask"],
 ) -> list[Shape]:
-    if output_format not in ["polygon", "mask"]:
-        raise ValueError(
-            f"output_format must be 'polygon' or 'mask', not {output_format}"
-        )
-
-    if not response.annotations:
+    if not annotations:
         logger.warning("No annotations returned")
         return []
 
-    annotations = sorted(
-        response.annotations,
+    sorted_annotations = sorted(
+        annotations,
         key=lambda a: a.score if a.score is not None else 0,
         reverse=True,
     )
 
     shapes: list[Shape] = []
-    for annotation in annotations:
+    for annotation in sorted_annotations:
         shape = shape_from_annotation(
             annotation=annotation, output_format=output_format
         )

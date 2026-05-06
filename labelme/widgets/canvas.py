@@ -1307,7 +1307,6 @@ class Canvas(QtWidgets.QWidget):
             return
         self.current = self.shapes.pop()
         self.current.open()
-        self.current.unrefine()
         if self.create_mode in POLYLINE_SHAPE_TYPES:
             self.line.points = [self.current[-1], self.current[0]]
         elif self.create_mode in ("rectangle", "line", "circle", "ai_box_to_shape"):

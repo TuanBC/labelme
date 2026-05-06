@@ -59,7 +59,6 @@ class Shape:
         self.points: list[QtCore.QPointF] = []
         self.point_labels: list[int] = []
         self.shape_type = shape_type
-        self._shape_raw = None
         self._points_raw: list[QtCore.QPointF] = []
         self._shape_type_raw = None
         self.fill = False
@@ -75,25 +74,6 @@ class Shape:
         if line_color is not None:
             # Per-instance line color override (used for the pending line).
             self.line_color = line_color
-
-    def refine(
-        self,
-        shape_type: str,
-        points: list[QtCore.QPointF],
-        point_labels: list[int],
-        mask: npt.NDArray[np.bool_] | None = None,
-    ) -> None:
-        self._shape_raw = (self.shape_type, self.points, self.point_labels)
-        self.shape_type = shape_type
-        self.points = points
-        self.point_labels = point_labels
-        self.mask = mask
-
-    def unrefine(self) -> None:
-        if self._shape_raw is None:
-            return
-        self.shape_type, self.points, self.point_labels = self._shape_raw
-        self._shape_raw = None
 
     @property
     def shape_type(self) -> str:

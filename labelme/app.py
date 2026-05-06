@@ -33,8 +33,10 @@ from PyQt5.QtWidgets import QMessageBox
 
 from labelme import __appname__
 from labelme import __version__
-from labelme._automation import bbox_from_text
-from labelme._automation._osam_session import OsamSession
+from labelme._automation import OsamSession
+from labelme._automation import get_bboxes_from_texts
+from labelme._automation import nms_bboxes
+from labelme._automation import shapes_from_bboxes
 from labelme._label_file import LABEL_FILE_SUFFIX
 from labelme._label_file import LabelData
 from labelme._label_file import LabelFileError
@@ -1270,7 +1272,7 @@ class MainWindow(QtWidgets.QMainWindow):
         ):
             self._text_osam_session = OsamSession(model_name=model_name)
 
-        boxes, scores, labels, masks = bbox_from_text.get_bboxes_from_texts(
+        boxes, scores, labels, masks = get_bboxes_from_texts(
             session=self._text_osam_session,
             image=utils.img_qt_to_arr(self._image)[:, :, :3],
             image_id=str(hash(self._image_path)),
@@ -1285,7 +1287,7 @@ class MainWindow(QtWidgets.QMainWindow):
             scores = np.r_[scores, [SCORE_FOR_EXISTING_SHAPE]]
             labels = np.r_[labels, [texts.index(shape.label)]]
 
-        boxes, scores, labels, indices = bbox_from_text.nms_bboxes(
+        boxes, scores, labels, indices = nms_bboxes(
             boxes=boxes,
             scores=scores,
             labels=labels,
@@ -1304,7 +1306,7 @@ class MainWindow(QtWidgets.QMainWindow):
             masks = [masks[i] for i in indices]
         del indices
 
-        shapes: list[Shape] = bbox_from_text.get_shapes_from_bboxes(
+        shapes: list[Shape] = shapes_from_bboxes(
             boxes=boxes,
             scores=scores,
             labels=labels,

@@ -1,17 +1,11 @@
-import json
 import time
-from typing import Literal
 
 import numpy as np
 import osam
 from loguru import logger
 from numpy.typing import NDArray
-from PyQt5 import QtCore
-
-from labelme.shape import Shape
 
 from ._osam_session import OsamSession
-from .polygon_from_mask import compute_polygon_from_mask
 
 
 def get_bboxes_from_texts(
@@ -96,57 +90,3 @@ def nms_bboxes(
     )
     logger.debug(f"Output: num_boxes={len(boxes)}")
     return boxes, scores, labels, indices
-
-
-def get_shapes_from_bboxes(
-    boxes: np.ndarray,
-    scores: np.ndarray,
-    labels: np.ndarray,
-    texts: list[str],
-    masks: list[NDArray[np.bool_]] | None,
-    shape_type: Literal["rectangle", "polygon", "mask"],
-) -> list[Shape]:
-    shapes: list[Shape] = []
-    for i, (box, score, label) in enumerate(zip(boxes, scores, labels)):
-        text: str = texts[label]
-        xmin, ymin, xmax, ymax = box
-
-        points: list[list[float]] = []
-        mask: NDArray[np.bool_] | None = None
-        if shape_type == "rectangle":
-            points = [[xmin, ymin], [xmax, ymax]]
-        elif shape_type == "polygon":
-            if masks is None:
-                points = [
-                    [xmin, ymin],
-                    [xmax, ymin],
-                    [xmax, ymax],
-                    [xmin, ymax],
-                    [xmin, ymin],
-                ]
-            else:
-                polygon = compute_polygon_from_mask(mask=masks[i])
-                points = (polygon + np.array([xmin, ymin], dtype=np.float32)).tolist()
-        elif shape_type == "mask":
-            xmin = int(xmin)
-            ymin = int(ymin)
-            xmax = int(xmax)
-            ymax = int(ymax)
-            points = [[xmin, ymin], [xmax, ymax]]
-            if masks is None:
-                mask = np.zeros((ymax - ymin, xmax - xmin), dtype=bool)
-            else:
-                mask = masks[i]
-        else:
-            raise ValueError(f"Unsupported shape_type: {shape_type!r}")
-
-        shape = Shape(
-            label=text,
-            shape_type=shape_type,
-            mask=mask,
-            description=json.dumps(dict(score=score.item(), text=text)),
-        )
-        for point in points:
-            shape.add_point(QtCore.QPointF(point[0], point[1]))
-        shapes.append(shape)
-    return shapes

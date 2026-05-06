@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import json
+from dataclasses import dataclass
 from typing import Literal
 
 import numpy as np
-import osam.types
-from loguru import logger
 from numpy.typing import NDArray
 from PyQt5.QtCore import QPointF
 
@@ -14,119 +12,88 @@ from labelme.shape import Shape
 from ._geometry import compute_polygon_from_mask
 
 
-def shape_from_annotation(
-    annotation: osam.types.Annotation,
-    output_format: Literal["polygon", "mask"],
-) -> Shape | None:
-    if annotation.mask is None:
-        return None
-
-    mask: np.ndarray = annotation.mask
-
-    if output_format == "mask":
-        if annotation.bounding_box is None:
-            return None
-        bb = annotation.bounding_box
-        shape = Shape()
-        shape.refine(
-            shape_type="mask",
-            points=[QPointF(bb.xmin, bb.ymin), QPointF(bb.xmax, bb.ymax)],
-            point_labels=[1, 1],
-            mask=mask,
-        )
-        shape.close()
-        return shape
-    elif output_format == "polygon":
-        points = compute_polygon_from_mask(mask=mask)
-        if len(points) < 2:
-            return None
-        if annotation.bounding_box is not None:
-            bb = annotation.bounding_box
-            points = points + np.array([bb.xmin, bb.ymin], dtype=np.float32)
-        shape = Shape()
-        shape.refine(
-            shape_type="polygon",
-            points=[QPointF(point[0], point[1]) for point in points],
-            point_labels=[1] * len(points),
-        )
-        shape.close()
-        return shape
-    raise ValueError(f"Unsupported output_format: {output_format!r}")
+@dataclass
+class Detection:
+    bbox: tuple[float, float, float, float] | None = None
+    mask: NDArray[np.bool_] | None = None
+    label: str | None = None
+    description: str | None = None
 
 
-def shapes_from_annotations(
-    annotations: list[osam.types.Annotation],
-    output_format: Literal["polygon", "mask"],
-) -> list[Shape]:
-    if not annotations:
-        logger.warning("No annotations returned")
-        return []
-
-    sorted_annotations = sorted(
-        annotations,
-        key=lambda a: a.score if a.score is not None else 0,
-        reverse=True,
+def _build_shape(
+    shape_type: Literal["rectangle", "polygon", "mask"],
+    points: list[QPointF],
+    *,
+    mask: NDArray[np.bool_] | None = None,
+    label: str | None = None,
+    description: str | None = None,
+) -> Shape:
+    shape = Shape(
+        label=label,
+        shape_type=shape_type,
+        mask=mask,
+        description=description,
     )
+    shape.points = points
+    shape.point_labels = [1] * len(points)
+    shape.close()
+    return shape
 
-    shapes: list[Shape] = []
-    for annotation in sorted_annotations:
-        shape = shape_from_annotation(
-            annotation=annotation, output_format=output_format
+
+def _shape_from_detection(
+    detection: Detection,
+    shape_type: Literal["rectangle", "polygon", "mask"],
+) -> Shape | None:
+    if shape_type == "rectangle":
+        if detection.bbox is None:
+            return None
+        xmin, ymin, xmax, ymax = detection.bbox
+        return _build_shape(
+            shape_type="rectangle",
+            points=[QPointF(xmin, ymin), QPointF(xmax, ymax)],
+            label=detection.label,
+            description=detection.description,
         )
-        if shape is not None:
-            shapes.append(shape)
-    return shapes
+    if shape_type == "polygon":
+        if detection.mask is None:
+            return None
+        polygon = compute_polygon_from_mask(mask=detection.mask)
+        if detection.bbox is not None:
+            polygon = polygon + np.array(
+                [detection.bbox[0], detection.bbox[1]], dtype=np.float32
+            )
+        if len(polygon) < 2:
+            return None
+        return _build_shape(
+            shape_type="polygon",
+            points=[QPointF(p[0], p[1]) for p in polygon],
+            label=detection.label,
+            description=detection.description,
+        )
+    if shape_type == "mask":
+        if detection.bbox is None or detection.mask is None:
+            return None
+        xmin = int(detection.bbox[0])
+        ymin = int(detection.bbox[1])
+        xmax = int(detection.bbox[2])
+        ymax = int(detection.bbox[3])
+        return _build_shape(
+            shape_type="mask",
+            points=[QPointF(xmin, ymin), QPointF(xmax, ymax)],
+            mask=detection.mask,
+            label=detection.label,
+            description=detection.description,
+        )
+    raise ValueError(f"Unsupported shape_type: {shape_type!r}")
 
 
-def shapes_from_bboxes(
-    boxes: np.ndarray,
-    scores: np.ndarray,
-    labels: np.ndarray,
-    texts: list[str],
-    masks: list[NDArray[np.bool_]] | None,
+def shapes_from_detections(
+    detections: list[Detection],
     shape_type: Literal["rectangle", "polygon", "mask"],
 ) -> list[Shape]:
     shapes: list[Shape] = []
-    for i, (box, score, label) in enumerate(zip(boxes, scores, labels)):
-        text: str = texts[label]
-        xmin, ymin, xmax, ymax = box
-
-        points: list[list[float]] = []
-        mask: NDArray[np.bool_] | None = None
-        if shape_type == "rectangle":
-            points = [[xmin, ymin], [xmax, ymax]]
-        elif shape_type == "polygon":
-            if masks is None:
-                points = [
-                    [xmin, ymin],
-                    [xmax, ymin],
-                    [xmax, ymax],
-                    [xmin, ymax],
-                    [xmin, ymin],
-                ]
-            else:
-                polygon = compute_polygon_from_mask(mask=masks[i])
-                points = (polygon + np.array([xmin, ymin], dtype=np.float32)).tolist()
-        elif shape_type == "mask":
-            xmin = int(xmin)
-            ymin = int(ymin)
-            xmax = int(xmax)
-            ymax = int(ymax)
-            points = [[xmin, ymin], [xmax, ymax]]
-            if masks is None:
-                mask = np.zeros((ymax - ymin, xmax - xmin), dtype=bool)
-            else:
-                mask = masks[i]
-        else:
-            raise ValueError(f"Unsupported shape_type: {shape_type!r}")
-
-        shape = Shape(
-            label=text,
-            shape_type=shape_type,
-            mask=mask,
-            description=json.dumps(dict(score=score.item(), text=text)),
-        )
-        for point in points:
-            shape.add_point(QPointF(point[0], point[1]))
-        shapes.append(shape)
+    for detection in detections:
+        shape = _shape_from_detection(detection=detection, shape_type=shape_type)
+        if shape is not None:
+            shapes.append(shape)
     return shapes

@@ -20,8 +20,9 @@ from PyQt5.QtCore import QRectF
 from PyQt5.QtCore import Qt
 
 import labelme.utils
+from labelme._automation import Detection
 from labelme._automation import OsamSession
-from labelme._automation import shapes_from_annotations
+from labelme._automation import shapes_from_detections
 from labelme.shape import POLYLINE_SHAPE_TYPES
 from labelme.shape import Shape
 
@@ -189,9 +190,9 @@ class Canvas(QtWidgets.QWidget):
             points=np.array([[p.x(), p.y()] for p in points]),
             point_labels=np.array(point_labels),
         )
-        return shapes_from_annotations(
-            annotations=response.annotations,
-            output_format=self._ai_output_format,
+        return shapes_from_detections(
+            detections=_detections_from_annotations(response.annotations),
+            shape_type=self._ai_output_format,
         )
 
     def _shapes_from_bbox_ai(self, bbox_points: list[QPointF]) -> list[Shape]:
@@ -204,9 +205,9 @@ class Canvas(QtWidgets.QWidget):
             # point_labels: 2=box corner, 3=opposite box corner (SAM convention)
             point_labels=np.array([2, 3]),
         )
-        return shapes_from_annotations(
-            annotations=response.annotations,
-            output_format=self._ai_output_format,
+        return shapes_from_detections(
+            detections=_detections_from_annotations(response.annotations),
+            shape_type=self._ai_output_format,
         )
 
     def backup_shapes(self) -> None:
@@ -1385,6 +1386,27 @@ class Canvas(QtWidgets.QWidget):
         self.hovered_edge = None
         self._last_hovered_edge = None
         self.update()
+
+
+def _detections_from_annotations(
+    annotations: list[osam.types.Annotation],
+) -> list[Detection]:
+    if not annotations:
+        logger.warning("No annotations returned")
+        return []
+    sorted_annotations = sorted(
+        annotations,
+        key=lambda a: a.score if a.score is not None else 0,
+        reverse=True,
+    )
+    detections: list[Detection] = []
+    for annotation in sorted_annotations:
+        bbox: tuple[float, float, float, float] | None = None
+        if annotation.bounding_box is not None:
+            bb = annotation.bounding_box
+            bbox = (bb.xmin, bb.ymin, bb.xmax, bb.ymax)
+        detections.append(Detection(bbox=bbox, mask=annotation.mask))
+    return detections
 
 
 def _normalize_bbox_points(bbox_points: list[QPointF]) -> list[QPointF]:
